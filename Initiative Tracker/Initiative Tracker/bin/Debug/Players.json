@@ -1,0 +1,8 @@
+[
+  {
+    "PlayerName": "Frank",
+    "PlayerInitiative": 1,
+    "Class": "Fighter",
+    "abilities":  ["Rage","First Strike"]
+  }
+]

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,20 +14,18 @@ namespace Initiative_Tracker
 {
     public partial class Form1 : Form
     {
+        List<Player> playerList = new List<Player>();
+        List<Abilities> abilitiesList = new List<Abilities>();
+
         public Form1()
         {
             InitializeComponent();
+            string json = File.ReadAllText("Players.json");
+            playerList = JsonConvert.DeserializeObject<List<Player>>(json);
+            json = File.ReadAllText("Abilities.json");
+            abilitiesList = JsonConvert.DeserializeObject<List<Abilities>>(json);
         }
-
-        public class player
-        {
-            public string playerName { get; set; }
-            public int playerInitiative { get; set; }
-        }
-
-        List<player> playerList = new List<player>();
-
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
                 Form2 form2 = new Form2();
@@ -46,20 +46,20 @@ namespace Initiative_Tracker
             {
                 if (playerList.Count() >= 1)
                 {
-                    playerList.Insert(insertIndex(Convert.ToInt32(enterInitiative.Text)), new player
+                    playerList.Insert(insertIndex(Convert.ToInt32(enterInitiative.Text)), new Player
                     {
-                        playerName = enterName.Text,
-                        playerInitiative = Convert.ToInt32(enterInitiative.Text)
+                        PlayerName = enterName.Text,
+                        PlayerInitiative = Convert.ToInt32(enterInitiative.Text)
                     });
 
                     
                 }
                 else
                 {
-                    playerList.Add(new player
+                    playerList.Add(new Player
                     {
-                        playerName = enterName.Text,
-                        playerInitiative = Convert.ToInt32(enterInitiative.Text)
+                        PlayerName = enterName.Text,
+                        PlayerInitiative = Convert.ToInt32(enterInitiative.Text)
                     });
                 }
                 updateOrder();
@@ -71,7 +71,7 @@ namespace Initiative_Tracker
         {
             for(int i=0; i<playerList.Count(); i++)
             {
-                if (playerList[i].playerInitiative < playerInitiative)
+                if (playerList[i].PlayerInitiative < playerInitiative)
                     return i;
             }
             return playerList.Count();
@@ -82,27 +82,27 @@ namespace Initiative_Tracker
             {
                 if (i == 0)
                 {
-                    player1.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player1.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
                 if(i == 1)
                 {
-                    player2.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player2.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
                 if (i == 2)
                 {
-                    player3.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player3.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
                 if (i == 3)
                 {
-                    player4.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player4.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
                 if (i == 4)
                 {
-                    player5.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player5.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
                 if (i == 5)
                 {
-                    player6.Text = playerList[i].playerName + playerList[i].playerInitiative;
+                    player6.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
             }
         }
