@@ -15,8 +15,9 @@ namespace Initiative_Tracker
     public partial class Form1 : Form
     {
         List<Player> playerList = new List<Player>();
-        List<Abilities> abilitiesList = new List<Abilities>();
+        List<RootObject> abilitiesList = new List<RootObject>();
         List<InfoLayout> infoLayoutList = new List<InfoLayout>();
+        List<string> initiativeOrder = new List<string>();
         public int numPlayers = 0;
 
         public Form1()
@@ -25,43 +26,47 @@ namespace Initiative_Tracker
             string json = File.ReadAllText("Players.json");//read the Players.json file
             playerList = JsonConvert.DeserializeObject<List<Player>>(json);//populate the playerList with all players found in the Players.json
             json = File.ReadAllText("Abilities.json");//read the Abilities.json file
-            abilitiesList = JsonConvert.DeserializeObject<List<Abilities>>(json);//populate the abilitiesList with all abilites found in the Abiliteis.json
+            abilitiesList = JsonConvert.DeserializeObject<List<RootObject>>(json);//populate the abilitiesList with all abilites found in the Abiliteis.json
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
-             Form2 form2 = new Form2();
-             form2.Show();
+            Form2 form2 = new Form2();
+            form2.Show();
+            for(var x = 0; x<playerList.Count;x++)
+            {
+                characterListBox.Items.Add(playerList[x].PlayerName);
+            }
+            for (var x = 0; x < abilitiesList[0].Class.Count; x++)
+            {
+                classSelect.Items.Add(abilitiesList[0].Class[x].Classname);
+            }
         }
 
         private void addToListButton_Click(object sender, EventArgs e)
         {
-            if (enterName.Text != "" && enterInitiative.Text != "")//check that both name and initiative were added for new players.
+            if (enterInitiative.Text != "" && characterListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
             {
-                numPlayers++;//increment the current players in the combat
-                var infolist = CreateInfoLayout();//create a new info layout for the players info to be displayed
-                infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
+                for (var x = 0; x<playerList.Count; x++)
+                {
+                    if (x == playerList.Count - 1)
+                    {
+                        numPlayers++;//increment the current players in the combat
+                        var infolist = CreateInfoLayout();//create a new info layout for the players info to be displayed
+                        infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
 
-                //add the controls to the form.
-                participantsBox.Controls.Add(infolist.playerName);
-                participantsBox.Controls.Add(infolist.HP);
-                participantsBox.Controls.Add(infolist.abilities);
-                participantsBox.Controls.Add(infolist.Initiative);
-                participantsBox.Controls.Add(infolist.AddAbility);
-
-
-                var player = new Player(); // create a new player
-                //update the new players info
-                player.PlayerName = infolist.playerName.Text;
-                player.PlayerInitiative = Int32.Parse(infolist.Initiative.Text);
-                playerList.Add(player);// add the new player to the player list
-
-                var jsonData = JsonConvert.SerializeObject(playerList);//create new json string from the updated player list
-                File.WriteAllText("Players.json", jsonData);//update the .json file with the new list.
+                        //add the controls to the form.
+                        participantsBox.Controls.Add(infolist.playerName);
+                        participantsBox.Controls.Add(infolist.HP);
+                        participantsBox.Controls.Add(infolist.abilities);
+                        participantsBox.Controls.Add(infolist.Initiative);
+                        participantsBox.Controls.Add(infolist.AddAbility);
+                    }
+                }
             }
-            else if(enterName.Text == "")//ensure a name was entered
+            else if(characterListBox.SelectedIndex == -1)//ensure a name was entered
             {
-                MessageBox.Show("Please enter the characters name.");
+                MessageBox.Show("Please select a character.");
             }
             else if (enterInitiative.Text == "")//ensure an initiative was entered.
             {
@@ -185,9 +190,9 @@ namespace Initiative_Tracker
         }
         private void AddAbility_Click(object sender, EventArgs e)
         {
-
+/////////////////////////////////////////////////////////////////////////////////////////FIX TO USE CHARACTERS NAME///////////////////////////////////////////////////////////////////////////
             int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
-            Form addAbilityForm = new AddAbilityForm(abilitiesList,playerList[s].Class);//create the add ability form and send it the abilitiesList
+            Form addAbilityForm = new AddAbilityForm(abilitiesList[0].Class,playerList[s].playerClass);//create the add ability form and send it the abilitiesList
             addAbilityForm.Show();//Show the add abilities form
         }
 
@@ -201,7 +206,7 @@ namespace Initiative_Tracker
             infoLayout.playerName.Name = $"player{infoLayoutList.Count +1}";
             infoLayout.playerName.Size = new System.Drawing.Size(45, 13);
             infoLayout.playerName.TabIndex = 13;
-            infoLayout.playerName.Text = $"{enterName.Text}";
+            infoLayout.playerName.Text = $"{characterListBox.SelectedItem}";
 
             infoLayout.HP.AutoSize = true;
             infoLayout.HP.Location = new System.Drawing.Point(130, 31 + vOffset);
@@ -234,6 +239,33 @@ namespace Initiative_Tracker
             infoLayout.AddAbility.Click += new System.EventHandler(this.AddAbility_Click);
 
             return infoLayout;
+        }
+        private void createCharacter_Click(object sender, EventArgs e)
+        {
+            if (enterName.Text != "")//check that both name and initiative were added for new players.
+            {
+                for (var x = 0; x < playerList.Count; x++)
+                {
+                    Player currentPlayer = playerList[x];
+                    if (currentPlayer.PlayerName == enterName.Text)
+                    {
+                        MessageBox.Show("Please enter the characters name.");
+                    }
+
+                }
+
+                var player = new Player//update the new players info
+                {
+                    //update the new players info
+                    PlayerName = enterName.Text,
+                    playerClass = abilitiesList[0].Class.Find(item => item.ToString() == classSelect.Text)
+                };
+                // create a new player
+                playerList.Add(player);// add the new player to the player list
+
+                var jsonData = JsonConvert.SerializeObject(playerList);//create new json string from the updated player list
+                File.WriteAllText("Players.json", jsonData);//update the .json file with the new list.
+            }
         }
     }
 }

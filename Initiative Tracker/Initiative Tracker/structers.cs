@@ -10,15 +10,11 @@ namespace Initiative_Tracker
     {
         public string PlayerName { get; set; }
         public int PlayerInitiative { get; set; }
-        public string Class { get; set; }
+        public Class playerClass { get; set; }
         public int HP { get; set; }
         public List<string> abilities = new List<string>();
     }
-    public class Abilities
-    {
-        public string AbilityName { get; set; }
-        public string AbilityDuration { get; set; }
-    }
+
     public class InfoLayout
     {
         public System.Windows.Forms.Label playerName = new System.Windows.Forms.Label();
@@ -28,4 +24,19 @@ namespace Initiative_Tracker
         public System.Windows.Forms.Button AddAbility = new System.Windows.Forms.Button();
     }
 
+    public class Ability
+    {
+        public string AbilityName { get; set; }
+        public string AbilityDuration { get; set; }
+    }
+
+    public class Class
+    {
+        public string Classname { get; set; }
+        public List<Ability> abilities { get; set; }
+    }
+    public class RootObject
+    {
+        public List<Class> Class { get; set; }
+    }
 }

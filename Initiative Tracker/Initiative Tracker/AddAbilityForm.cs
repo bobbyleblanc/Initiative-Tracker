@@ -13,10 +13,10 @@ namespace Initiative_Tracker
     public partial class AddAbilityForm : Form
     {
 
-        List<Abilities> abilitiesList2;
-        string playerClass;
+        List<Class> abilitiesList2;
+        Class playerClass;
 
-        public AddAbilityForm(List<Abilities> abilitiesList, string sentClass)
+        public AddAbilityForm(List<Class> abilitiesList, Class sentClass)
         {
             InitializeComponent();
             abilitiesList2 = abilitiesList;
@@ -28,10 +28,12 @@ namespace Initiative_Tracker
             
             for (var x =0; x < abilitiesList2.Count; x++)
             {
-                Abilities Class = abilitiesList2[x];
-                if (Class.AbilityName == "fight")
+                if (abilitiesList2[x] == playerClass)
                 {
-                    AbilitiesListBox.Items.Add(Class.AbilityName);
+                    for (var z = 0; z < playerClass.abilities.Count; z++)
+                    {
+                        AbilitiesListBox.Items.Add(playerClass.abilities[z]);
+                    }
                 }
             }
         }

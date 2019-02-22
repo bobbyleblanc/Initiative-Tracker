@@ -1,1 +1,16 @@
-[{"abilities":["Rage","First Strike"],"PlayerName":"Frank","PlayerInitiative":1,"Class":"Fighter","HP":0},{"abilities":[],"PlayerName":"Kyle","PlayerInitiative":17,"Class":null,"HP":0},{"abilities":[],"PlayerName":"Kyle","PlayerInitiative":17,"Class":null,"HP":0},{"abilities":[],"PlayerName":"kyle","PlayerInitiative":5,"Class":null,"HP":0}]
+[
+  {
+    "PlayerName": "Frank",
+    "PlayerInitiative": 1,
+    "Class": "Fighter",
+    "HP": 0,
+    "abilities": [ "Rage", "First Strike" ]
+  },
+  {
+    "abilities": [],
+    "PlayerName": "Kyle",
+    "PlayerInitiative": 17,
+    "Class": "fighter",
+    "HP": 0
+  }
+]

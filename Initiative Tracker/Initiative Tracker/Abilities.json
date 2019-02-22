@@ -1,74 +1,72 @@
 [
-
   {
-    "Barbarian": [
+    "Class": [
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Cleric": [
-      {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Wizard": [
-      {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Druid": [
-      {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Fighter": [
-      {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
+        "Classname": "Barbarian",
+        "abilities": [
+          {
+            "AbilityName": "Rage",
+            "AbilityDuration": "10"
+          },
+          {
+            "AbilityName": "Fight",
+            "AbilityDuration": "10"
+          }
+        ]
       },
       {
-        "AbilityName": "First Strike",
-        "AbilityDuration": "5"
-      }
-    ],
-    "Warlock": [
+        "Classname": "Cleric",
+        "abilities": [
+          {
+            "AbilityName": "Rage",
+            "AbilityDuration": "10"
+          }
+        ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Rogue": [
+        "Classname": "Wizard",
+        "abilities": [ {} ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Monk": [
+        "Classname": "Druid",
+        "abilities": [ {} ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Paladin": [
+        "Classname": "Fighter",
+        "abilities": [
+          {
+            "AbilityName": "Rage",
+            "AbilityDuration": "10"
+          },
+          {
+            "AbilityName": "First Strike",
+            "AbilityDuration": "5"
+          }
+        ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Ranger": [
+        "Classname": "Warlock",
+        "abilities": [ {} ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
-      }
-    ],
-    "Sorcerer": [
+        "Classname": "Rogue",
+        "abilities": [ {} ]
+      },
       {
-        "AbilityName": "Rage",
-        "AbilityDuration": "10"
+        "Classname": "Monk",
+        "abilities": [ {} ]
+      },
+      {
+        "Classname": "Paladin",
+        "abilities": [ {} ]
+      },
+      {
+        "Classname": "Ranger",
+        "abilities": [ {} ]
+      },
+      {
+        "Classname": "Sorcerer",
+        "abilities": [ {} ]
       }
     ]
   }
