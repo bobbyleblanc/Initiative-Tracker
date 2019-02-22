@@ -39,6 +39,15 @@
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Ability = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Roundsleft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.participantsBox = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.homeTab = new System.Windows.Forms.TabPage();
+            this.characterTab = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tabControl1.SuspendLayout();
+            this.homeTab.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // addToListButton
@@ -135,22 +144,93 @@
             this.Roundsleft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.Roundsleft.Width = 65;
             // 
+            // participantsBox
+            // 
+            this.participantsBox.AutoSize = true;
+            this.participantsBox.Location = new System.Drawing.Point(21, 27);
+            this.participantsBox.Name = "participantsBox";
+            this.participantsBox.Size = new System.Drawing.Size(487, 250);
+            this.participantsBox.TabIndex = 32;
+            this.participantsBox.TabStop = false;
+            this.participantsBox.Text = "Current Participants";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.homeTab);
+            this.tabControl1.Controls.Add(this.characterTab);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 23);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(817, 449);
+            this.tabControl1.TabIndex = 33;
+            // 
+            // homeTab
+            // 
+            this.homeTab.Controls.Add(this.participantsBox);
+            this.homeTab.Controls.Add(this.listView1);
+            this.homeTab.Controls.Add(this.label2);
+            this.homeTab.Controls.Add(this.label1);
+            this.homeTab.Controls.Add(this.enterInitiative);
+            this.homeTab.Controls.Add(this.enterName);
+            this.homeTab.Controls.Add(this.button3);
+            this.homeTab.Controls.Add(this.button2);
+            this.homeTab.Controls.Add(this.addToListButton);
+            this.homeTab.Location = new System.Drawing.Point(4, 22);
+            this.homeTab.Name = "homeTab";
+            this.homeTab.Padding = new System.Windows.Forms.Padding(3);
+            this.homeTab.Size = new System.Drawing.Size(809, 423);
+            this.homeTab.TabIndex = 0;
+            this.homeTab.Text = "Home";
+            this.homeTab.UseVisualStyleBackColor = true;
+            // 
+            // characterTab
+            // 
+            this.characterTab.Location = new System.Drawing.Point(4, 22);
+            this.characterTab.Name = "characterTab";
+            this.characterTab.Padding = new System.Windows.Forms.Padding(3);
+            this.characterTab.Size = new System.Drawing.Size(792, 397);
+            this.characterTab.TabIndex = 1;
+            this.characterTab.Text = "Characters";
+            this.characterTab.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel1.Controls.Add(this.menuStrip1);
+            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel1.Size = new System.Drawing.Size(823, 475);
+            this.panel1.TabIndex = 34;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(823, 20);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.enterInitiative);
-            this.Controls.Add(this.enterName);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.addToListButton);
+            this.ClientSize = new System.Drawing.Size(823, 475);
+            this.Controls.Add(this.panel1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.homeTab.ResumeLayout(false);
+            this.homeTab.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,6 +249,12 @@
         private System.Windows.Forms.ColumnHeader Ability;
         private System.Windows.Forms.ColumnHeader Roundsleft;
         private System.Windows.Forms.ColumnHeader Player;
+        private System.Windows.Forms.GroupBox participantsBox;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage characterTab;
+        private System.Windows.Forms.TabPage homeTab;
+        private System.Windows.Forms.TableLayoutPanel panel1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

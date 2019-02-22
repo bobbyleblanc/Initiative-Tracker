@@ -43,11 +43,11 @@ namespace Initiative_Tracker
                 infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
 
                 //add the controls to the form.
-                this.Controls.Add(infolist.playerName);
-                this.Controls.Add(infolist.HP);
-                this.Controls.Add(infolist.abilities);
-                this.Controls.Add(infolist.Initiative);
-                this.Controls.Add(infolist.AddAbility);
+                participantsBox.Controls.Add(infolist.playerName);
+                participantsBox.Controls.Add(infolist.HP);
+                participantsBox.Controls.Add(infolist.abilities);
+                participantsBox.Controls.Add(infolist.Initiative);
+                participantsBox.Controls.Add(infolist.AddAbility);
 
 
                 var player = new Player(); // create a new player
@@ -194,37 +194,38 @@ namespace Initiative_Tracker
         private InfoLayout CreateInfoLayout()
         {
             InfoLayout infoLayout = new InfoLayout();
+            var vOffset = 29 * infoLayoutList.Count;
 
             infoLayout.playerName.AutoSize = true;
-            infoLayout.playerName.Location = new System.Drawing.Point(66, 31+(29*infoLayoutList.Count));
+            infoLayout.playerName.Location = new System.Drawing.Point(66, 31+vOffset);
             infoLayout.playerName.Name = $"player{infoLayoutList.Count +1}";
             infoLayout.playerName.Size = new System.Drawing.Size(45, 13);
             infoLayout.playerName.TabIndex = 13;
             infoLayout.playerName.Text = $"{enterName.Text}";
 
             infoLayout.HP.AutoSize = true;
-            infoLayout.HP.Location = new System.Drawing.Point(130, 31 + (29 * infoLayoutList.Count));
+            infoLayout.HP.Location = new System.Drawing.Point(130, 31 + vOffset);
             infoLayout.HP.Name = $"HP{infoLayoutList.Count + 1}";
             infoLayout.HP.Size = new System.Drawing.Size(45, 13);
             infoLayout.HP.TabIndex = 13;
             infoLayout.HP.Text = $"HP {infoLayoutList.Count + 1}";
 
             infoLayout.abilities.AutoSize = true;
-            infoLayout.abilities.Location = new System.Drawing.Point(211, 31 + (29 * infoLayoutList.Count));
+            infoLayout.abilities.Location = new System.Drawing.Point(211, 31 + vOffset);
             infoLayout.abilities.Name = $"abilites{infoLayoutList.Count + 1}";
             infoLayout.abilities.Size = new System.Drawing.Size(45, 13);
             infoLayout.abilities.TabIndex = 13;
             infoLayout.abilities.Text = $"Ability {infoLayoutList.Count + 1}";
 
             infoLayout.Initiative.AutoSize = true;
-            infoLayout.Initiative.Location = new System.Drawing.Point(45, 31 + (29 * infoLayoutList.Count));
+            infoLayout.Initiative.Location = new System.Drawing.Point(45, 31 + vOffset);
             infoLayout.Initiative.Name = $"Initiative{infoLayoutList.Count + 1}";
             infoLayout.Initiative.Size = new System.Drawing.Size(45, 13);
             infoLayout.Initiative.TabIndex = 13;
             infoLayout.Initiative.Text = $"{enterInitiative.Text}";
 
 
-            infoLayout.AddAbility.Location = new System.Drawing.Point(270, 31 + (29 * infoLayoutList.Count));
+            infoLayout.AddAbility.Location = new System.Drawing.Point(270, 31 + vOffset);
             infoLayout.AddAbility.Name = $"AddAbility{infoLayoutList.Count + 1}";
             infoLayout.AddAbility.Size = new System.Drawing.Size(133,23);
             infoLayout.AddAbility.TabIndex = 1;
