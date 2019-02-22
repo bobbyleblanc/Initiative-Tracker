@@ -39,7 +39,7 @@ namespace Initiative_Tracker
             if (enterName.Text != "" && enterInitiative.Text != "")//check that both name and initiative were added for new players.
             {
                 numPlayers++;//increment the current players in the combat
-                var infolist = new InfoLayout();//create a new info layout for the players info to be displayed
+                var infolist = CreateInfoLayout();//create a new info layout for the players info to be displayed
                 infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
 
                 //add the controls to the form.
