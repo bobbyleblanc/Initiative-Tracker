@@ -16,25 +16,61 @@ namespace Initiative_Tracker
     {
         List<Player> playerList = new List<Player>();
         List<Abilities> abilitiesList = new List<Abilities>();
+        List<InfoLayout> infoLayoutList = new List<InfoLayout>();
+        public int numPlayers = 0;
 
         public Form1()
         {
             InitializeComponent();
-            string json = File.ReadAllText("Players.json");
-            playerList = JsonConvert.DeserializeObject<List<Player>>(json);
-            json = File.ReadAllText("Abilities.json");
-            abilitiesList = JsonConvert.DeserializeObject<List<Abilities>>(json);
+            string json = File.ReadAllText("Players.json");//read the Players.json file
+            playerList = JsonConvert.DeserializeObject<List<Player>>(json);//populate the playerList with all players found in the Players.json
+            json = File.ReadAllText("Abilities.json");//read the Abilities.json file
+            abilitiesList = JsonConvert.DeserializeObject<List<Abilities>>(json);//populate the abilitiesList with all abilites found in the Abiliteis.json
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
-                Form2 form2 = new Form2();
-                form2.Show();   
+             Form2 form2 = new Form2();
+             form2.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void addToListButton_Click(object sender, EventArgs e)
         {
-            if (enterName.Text == "")
+            if (enterName.Text != "" && enterInitiative.Text != "")//check that both name and initiative were added for new players.
+            {
+                numPlayers++;//increment the current players in the combat
+                var infolist = new InfoLayout();//create a new info layout for the players info to be displayed
+                infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
+
+                //add the controls to the form.
+                this.Controls.Add(infolist.playerName);
+                this.Controls.Add(infolist.HP);
+                this.Controls.Add(infolist.abilities);
+                this.Controls.Add(infolist.Initiative);
+                this.Controls.Add(infolist.AddAbility);
+
+
+                var player = new Player(); // create a new player
+                //update the new players info
+                player.PlayerName = infolist.playerName.Text;
+                player.PlayerInitiative = Int32.Parse(infolist.Initiative.Text);
+                playerList.Add(player);// add the new player to the player list
+
+                var jsonData = JsonConvert.SerializeObject(playerList);//create new json string from the updated player list
+                File.WriteAllText("Players.json", jsonData);//update the .json file with the new list.
+            }
+            else if(enterName.Text == "")//ensure a name was entered
+            {
+                MessageBox.Show("Please enter the characters name.");
+            }
+            else if (enterInitiative.Text == "")//ensure an initiative was entered.
+            {
+
+                MessageBox.Show("Please enter the characters initiative.");
+            }
+
+
+            /*if (enterName.Text == "")
             {
                 Button button = new Button();
                 this.Controls.Add(button);
@@ -65,7 +101,7 @@ namespace Initiative_Tracker
                 updateOrder();
                 enterName.Text = "";
                 enterInitiative.Text = "";
-            }
+            }*/
         }
         private int insertIndex(int playerInitiative)
         {
@@ -76,8 +112,9 @@ namespace Initiative_Tracker
             }
             return playerList.Count();
         }
+
         private void updateOrder()
-        {
+        {/*
            for(int i=0; i<playerList.Count(); i++)
             {
                 if (i == 0)
@@ -104,11 +141,11 @@ namespace Initiative_Tracker
                 {
                     player6.Text = playerList[i].PlayerName + playerList[i].PlayerInitiative;
                 }
-            }
+            }*/
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
+        {/*
             string tempName;        // NEXT
 
             for(int i=0; i < listView1.Items.Count; i++)
@@ -122,7 +159,7 @@ namespace Initiative_Tracker
 
                 }
             }
-
+            
             tempName = player1.Text;
             player1.Text = player2.Text;
             player2.Text = player3.Text;
@@ -130,13 +167,13 @@ namespace Initiative_Tracker
             player4.Text = player5.Text;
             player5.Text = player6.Text;
             player6.Text = tempName;
-
+            */
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
+        {/*
             string tempName;        // BACK
-
+            
             tempName = player1.Text;
             player1.Text = player6.Text;
             player6.Text = player5.Text;
@@ -144,102 +181,58 @@ namespace Initiative_Tracker
             player4.Text = player3.Text;
             player3.Text = player2.Text;
             player2.Text = tempName;
+            */
+        }
+        private void AddAbility_Click(object sender, EventArgs e)
+        {
+
+            int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
+            Form addAbilityForm = new AddAbilityForm(abilitiesList,playerList[s].Class);//create the add ability form and send it the abilitiesList
+            addAbilityForm.Show();//Show the add abilities form
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private InfoLayout CreateInfoLayout()
         {
-            if (ability1.Text == "")
-            {
+            InfoLayout infoLayout = new InfoLayout();
 
-            }
-            else
-            {
-                string[] row = { player1.Text, ability1.Text, rounds1.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability1.Text = "";
-                rounds1.Text = "";
-            }
-        }
+            infoLayout.playerName.AutoSize = true;
+            infoLayout.playerName.Location = new System.Drawing.Point(66, 31+(29*infoLayoutList.Count));
+            infoLayout.playerName.Name = $"player{infoLayoutList.Count +1}";
+            infoLayout.playerName.Size = new System.Drawing.Size(45, 13);
+            infoLayout.playerName.TabIndex = 13;
+            infoLayout.playerName.Text = $"{enterName.Text}";
 
-        private void addAbility2_Click(object sender, EventArgs e)
-        {
-            if (ability2.Text == "")
-            {
+            infoLayout.HP.AutoSize = true;
+            infoLayout.HP.Location = new System.Drawing.Point(130, 31 + (29 * infoLayoutList.Count));
+            infoLayout.HP.Name = $"HP{infoLayoutList.Count + 1}";
+            infoLayout.HP.Size = new System.Drawing.Size(45, 13);
+            infoLayout.HP.TabIndex = 13;
+            infoLayout.HP.Text = $"HP {infoLayoutList.Count + 1}";
 
-            }
-            else
-            {
-                string[] row = { player2.Text, ability2.Text, rounds2.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability2.Text = "";
-                rounds2.Text = "";
-            }
-        }
+            infoLayout.abilities.AutoSize = true;
+            infoLayout.abilities.Location = new System.Drawing.Point(211, 31 + (29 * infoLayoutList.Count));
+            infoLayout.abilities.Name = $"abilites{infoLayoutList.Count + 1}";
+            infoLayout.abilities.Size = new System.Drawing.Size(45, 13);
+            infoLayout.abilities.TabIndex = 13;
+            infoLayout.abilities.Text = $"Ability {infoLayoutList.Count + 1}";
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            if (ability3.Text == "")
-            {
+            infoLayout.Initiative.AutoSize = true;
+            infoLayout.Initiative.Location = new System.Drawing.Point(45, 31 + (29 * infoLayoutList.Count));
+            infoLayout.Initiative.Name = $"Initiative{infoLayoutList.Count + 1}";
+            infoLayout.Initiative.Size = new System.Drawing.Size(45, 13);
+            infoLayout.Initiative.TabIndex = 13;
+            infoLayout.Initiative.Text = $"{enterInitiative.Text}";
 
-            }
-            else
-            {
-                string[] row = { player3.Text, ability3.Text, rounds3.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability3.Text = "";
-                rounds3.Text = "";
-            }
-        }
 
-        private void addAbility4_Click(object sender, EventArgs e)
-        {
-            if (ability4.Text == "")
-            {
+            infoLayout.AddAbility.Location = new System.Drawing.Point(270, 31 + (29 * infoLayoutList.Count));
+            infoLayout.AddAbility.Name = $"AddAbility{infoLayoutList.Count + 1}";
+            infoLayout.AddAbility.Size = new System.Drawing.Size(133,23);
+            infoLayout.AddAbility.TabIndex = 1;
+            infoLayout.AddAbility.Text = "Add Ability";
+            infoLayout.AddAbility.UseVisualStyleBackColor = true;
+            infoLayout.AddAbility.Click += new System.EventHandler(this.AddAbility_Click);
 
-            }
-            else
-            {
-                string[] row = { player4.Text, ability4.Text, rounds4.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability4.Text = "";
-                rounds4.Text = "";
-            }
-        }
-
-        private void addAbility5_Click(object sender, EventArgs e)
-        {
-            if (ability5.Text == "")
-            {
-
-            }
-            else
-            {
-                string[] row = { player5.Text, ability5.Text, rounds5.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability5.Text = "";
-                rounds5.Text = "";
-            }
-        }
-
-        private void addAbility6_Click(object sender, EventArgs e)
-        {
-            if (ability6.Text == "")
-            {
-
-            }
-            else
-            {
-                string[] row = { player6.Text, ability6.Text, rounds6.Text };
-                var listViewItem = new ListViewItem(row);
-                listView1.Items.Add(listViewItem);
-                ability6.Text = "";
-                rounds6.Text = "";
-            }
+            return infoLayout;
         }
     }
 }

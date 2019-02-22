@@ -1,8 +1,1 @@
-[
-  {
-    "PlayerName": "Frank",
-    "PlayerInitiative": 1,
-    "Class": "Fighter",
-    "abilities":  ["Rage","First Strike"]
-  }
-]
+[{"abilities":["Rage","First Strike"],"PlayerName":"Frank","PlayerInitiative":1,"Class":"Fighter"}]
