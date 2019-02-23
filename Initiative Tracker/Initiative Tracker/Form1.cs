@@ -17,8 +17,12 @@ namespace Initiative_Tracker
         List<Player> playerList = new List<Player>();
         List<RootObject> abilitiesList = new List<RootObject>();
         List<InfoLayout> infoLayoutList = new List<InfoLayout>();
-        List<string> initiativeOrder = new List<string>();
+        List<Player> initiativeOrder = new List<Player>();
+        List<Player> currentOrder = new List<Player>();
         public int numPlayers = 0;
+        public int turn = 0;
+
+        Form2 form2 = new Form2();
 
         public Form1()
         {
@@ -31,7 +35,6 @@ namespace Initiative_Tracker
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
             form2.Show();
             for(var x = 0; x<playerList.Count;x++)
             {
@@ -61,6 +64,28 @@ namespace Initiative_Tracker
                         participantsBox.Controls.Add(infolist.abilities);
                         participantsBox.Controls.Add(infolist.Initiative);
                         participantsBox.Controls.Add(infolist.AddAbility);
+
+                        playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()).PlayerInitiative = Int32.Parse(enterInitiative.Text);
+
+                        initiativeOrder.Add(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();
+                        var index = initiativeOrder.IndexOf(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                        var temp = index - turn;
+                        if (temp >= 0)
+                        {
+                            currentOrder.Insert(index - turn, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                        }
+                        else
+                        {
+                            currentOrder.Insert(currentOrder.Count-turn-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                        }
+                        listView1.Items.Clear();
+                        form2.listView1.Items.Clear();
+                        for (int y = 0; y < currentOrder.Count; y++)
+                        {
+                            listView1.Items.Add(currentOrder[y].PlayerName);
+                            form2.listView1.Items.Add(currentOrder[y].PlayerName);
+                        }
                     }
                 }
             }
@@ -150,7 +175,47 @@ namespace Initiative_Tracker
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {/*
+        {
+            turn++;
+
+            var lvi = currentOrder[0];
+            currentOrder.RemoveAt(0);
+            currentOrder.Insert(currentOrder.Count,lvi);
+            listView1.Items.Clear();
+            form2.listView1.Items.Clear();
+            for (int y = 0; y < currentOrder.Count; y++)
+            {
+                listView1.Items.Add(currentOrder[y].PlayerName);
+                form2.listView1.Items.Add(currentOrder[y].PlayerName);
+            }
+
+            if(turn == currentOrder.Count)
+            {
+                turn = 0;
+            }
+
+            /*
+            bool first = true;
+
+            
+            foreach (ListViewItem lvi in listView1.SelectedItems)
+            {
+                if (first)
+                {
+                    int index = initiativeOrder.Count;
+                    listView1.Items.RemoveAt(lvi.Index);
+                    listView1.Items.Insert(index, lvi);
+                }
+                if (lvi.Index > 0)
+                {
+                    int index = lvi.Index - 1;
+                    listView1.Items.RemoveAt(lvi.Index);
+                    listView1.Items.Insert(index, lvi);
+                }
+            }
+            */
+
+            /*
             string tempName;        // NEXT
 
             for(int i=0; i < listView1.Items.Count; i++)
@@ -251,7 +316,6 @@ namespace Initiative_Tracker
                     {
                         MessageBox.Show("Please enter the characters name.");
                     }
-
                 }
 
                 var player = new Player//update the new players info
@@ -265,6 +329,8 @@ namespace Initiative_Tracker
 
                 var jsonData = JsonConvert.SerializeObject(playerList);//create new json string from the updated player list
                 File.WriteAllText("Players.json", jsonData);//update the .json file with the new list.
+
+                characterListBox.Items.Add(playerList[playerList.Count-1].PlayerName);
             }
         }
     }
