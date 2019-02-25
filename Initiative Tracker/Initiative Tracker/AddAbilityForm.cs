@@ -16,7 +16,9 @@ namespace Initiative_Tracker
         List<Class> abilitiesList2;
         Class playerClass;
 
-        public string AddAbilityForm(List<Class> abilitiesList, string sentClass)
+        public string NewAbility { get; set; }
+
+        public AddAbilityForm(List<Class> abilitiesList, string sentClass)
         {
             InitializeComponent();
             abilitiesList2 = abilitiesList;
@@ -40,11 +42,14 @@ namespace Initiative_Tracker
 
         private void AddAbility_Click(object sender, EventArgs e)
         {
-            return AbilitiesListBox.SelectedItem;
+            NewAbility = AbilitiesListBox.SelectedItem.ToString();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void Cancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 

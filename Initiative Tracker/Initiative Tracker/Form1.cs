@@ -259,8 +259,18 @@ namespace Initiative_Tracker
         {
 /////////////////////////////////////////////////////////////////////////////////////////FIX TO USE CHARACTERS NAME///////////////////////////////////////////////////////////////////////////
             int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
-            Form addAbilityForm = new AddAbilityForm(abilitiesList[0].Class,playerList[s].PlayerClass);//create the add ability form and send it the abilitiesList
-            addAbilityForm.Show();//Show the add abilities form
+            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, playerList[s].PlayerClass))//create the add ability form and send it the abilitiesList
+            {
+                var result = addAbilityForm.ShowDialog();//Show the add abilities form
+
+                if (result == DialogResult.OK)
+                {
+                    string val = addAbilityForm.NewAbility;
+                    var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;
+                    currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(val);
+                    listView1.Items[(listView1.Items.IndexOfKey(characterName))].SubItems[1].Text = val;
+                }
+            }
         }
 
         private InfoLayout CreateInfoLayout()
