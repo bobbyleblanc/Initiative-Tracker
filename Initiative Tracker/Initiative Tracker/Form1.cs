@@ -83,8 +83,14 @@ namespace Initiative_Tracker
                         form2.listView1.Items.Clear();
                         for (int y = 0; y < currentOrder.Count; y++)
                         {
-                            listView1.Items.Add(currentOrder[y].PlayerName);
+                            ListViewItem listItem = new ListViewItem(currentOrder[y].PlayerName); 
+                            //listItem = (currentOrder[y].PlayerName);
+                            listItem.Name = currentOrder[y].PlayerName;
+                            listItem.SubItems.Add("");
+                            listItem.SubItems.Add("");
+                            listView1.Items.Add(listItem);
                             form2.listView1.Items.Add(currentOrder[y].PlayerName);
+                            
                         }
                     }
                 }
@@ -268,7 +274,8 @@ namespace Initiative_Tracker
                     string val = addAbilityForm.NewAbility;
                     var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;
                     currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(val);
-                    listView1.Items[(listView1.Items.IndexOfKey(characterName))].SubItems[1].Text = val;
+                    var index = (listView1.Items.IndexOfKey(characterName));
+                        listView1.Items[(listView1.Items.IndexOfKey(characterName))].SubItems[1].Text = val;
                 }
             }
         }
