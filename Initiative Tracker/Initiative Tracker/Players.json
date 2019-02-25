@@ -2,7 +2,7 @@
   {
     "PlayerName": "Frank",
     "PlayerInitiative": 1,
-    "Class": "Fighter",
+    "PlayerClass": "Fighter",
     "HP": 0,
     "abilities": [ "Rage", "First Strike" ]
   },
@@ -10,7 +10,7 @@
     "abilities": [],
     "PlayerName": "Kyle",
     "PlayerInitiative": 17,
-    "Class": "fighter",
+    "PlayerClass": "Fighter",
     "HP": 0
   }
 ]

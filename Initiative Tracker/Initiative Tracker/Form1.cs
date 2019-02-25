@@ -133,6 +133,7 @@ namespace Initiative_Tracker
                 enterInitiative.Text = "";
             }*/
         }
+
         private int insertIndex(int playerInitiative)
         {
             for(int i=0; i<playerList.Count(); i++)
@@ -253,11 +254,12 @@ namespace Initiative_Tracker
             player2.Text = tempName;
             */
         }
+
         private void AddAbility_Click(object sender, EventArgs e)
         {
 /////////////////////////////////////////////////////////////////////////////////////////FIX TO USE CHARACTERS NAME///////////////////////////////////////////////////////////////////////////
             int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
-            Form addAbilityForm = new AddAbilityForm(abilitiesList[0].Class,playerList[s].playerClass);//create the add ability form and send it the abilitiesList
+            Form addAbilityForm = new AddAbilityForm(abilitiesList[0].Class,playerList[s].PlayerClass);//create the add ability form and send it the abilitiesList
             addAbilityForm.Show();//Show the add abilities form
         }
 
@@ -305,6 +307,7 @@ namespace Initiative_Tracker
 
             return infoLayout;
         }
+
         private void createCharacter_Click(object sender, EventArgs e)
         {
             if (enterName.Text != "")//check that both name and initiative were added for new players.
@@ -322,7 +325,7 @@ namespace Initiative_Tracker
                 {
                     //update the new players info
                     PlayerName = enterName.Text,
-                    playerClass = abilitiesList[0].Class.Find(item => item.ToString() == classSelect.Text)
+                    PlayerClass = classSelect.Text
                 };
                 // create a new player
                 playerList.Add(player);// add the new player to the player list

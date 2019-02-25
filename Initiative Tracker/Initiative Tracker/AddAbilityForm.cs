@@ -16,11 +16,11 @@ namespace Initiative_Tracker
         List<Class> abilitiesList2;
         Class playerClass;
 
-        public AddAbilityForm(List<Class> abilitiesList, Class sentClass)
+        public string AddAbilityForm(List<Class> abilitiesList, string sentClass)
         {
             InitializeComponent();
             abilitiesList2 = abilitiesList;
-            playerClass = sentClass;
+            playerClass = abilitiesList2.Find(item => item.Classname ==  sentClass);
         }
 
         private void AddAbilityForm_Load(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace Initiative_Tracker
                 {
                     for (var z = 0; z < playerClass.abilities.Count; z++)
                     {
-                        AbilitiesListBox.Items.Add(playerClass.abilities[z]);
+                        AbilitiesListBox.Items.Add(playerClass.abilities[z].AbilityName);
                     }
                 }
             }
@@ -40,7 +40,7 @@ namespace Initiative_Tracker
 
         private void AddAbility_Click(object sender, EventArgs e)
         {
-
+            return AbilitiesListBox.SelectedItem;
         }
 
         private void Cancel_Click(object sender, EventArgs e)

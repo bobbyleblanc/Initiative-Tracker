@@ -10,7 +10,7 @@ namespace Initiative_Tracker
     {
         public string PlayerName { get; set; }
         public int PlayerInitiative { get; set; }
-        public Class playerClass { get; set; }
+        public string PlayerClass { get; set; }
         public int HP { get; set; }
         public List<string> abilities = new List<string>();
     }
