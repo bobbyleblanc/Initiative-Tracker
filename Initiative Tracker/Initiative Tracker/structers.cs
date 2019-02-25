@@ -12,7 +12,7 @@ namespace Initiative_Tracker
         public int PlayerInitiative { get; set; }
         public string PlayerClass { get; set; }
         public int HP { get; set; }
-        public List<string> abilities = new List<string>();
+        public List<Ability> abilities = new List<Ability>();
     }
 
     public class InfoLayout
@@ -22,12 +22,13 @@ namespace Initiative_Tracker
         public System.Windows.Forms.Label abilities = new System.Windows.Forms.Label();
         public System.Windows.Forms.Label Initiative = new System.Windows.Forms.Label();
         public System.Windows.Forms.Button AddAbility = new System.Windows.Forms.Button();
+        public System.Windows.Forms.Button AddCondtion = new System.Windows.Forms.Button();
     }
 
     public class Ability
     {
         public string AbilityName { get; set; }
-        public string AbilityDuration { get; set; }
+        public int AbilityDuration { get; set; }
     }
 
     public class Class

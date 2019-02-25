@@ -79,17 +79,32 @@ namespace Initiative_Tracker
                         {
                             currentOrder.Insert(currentOrder.Count-turn-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
                         }
-                        listView1.Items.Clear();
+                        dataGridView1.Rows.Clear();
+                        //listView1.Items.Clear();
                         form2.listView1.Items.Clear();
                         for (int y = 0; y < currentOrder.Count; y++)
                         {
+                            this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                            foreach (Ability a in currentOrder[y].abilities)
+                            {
+                                if (dataGridView1["Abilities", y].Value.ToString() == "")
+                                {
+                                    dataGridView1["Abilities", y].Value = a.AbilityName;
+                                    dataGridView1["Rounds", y].Value = a.AbilityDuration.ToString();
+                                }
+                                else
+                                {
+                                    dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                    dataGridView1["Rounds", y].Value += "\n" + a.AbilityDuration.ToString();
+                                }
+                            }
+
                             ListViewItem listItem = new ListViewItem(currentOrder[y].PlayerName); 
-                            //listItem = (currentOrder[y].PlayerName);
                             listItem.Name = currentOrder[y].PlayerName;
                             listItem.SubItems.Add("");
                             listItem.SubItems.Add("");
-                            listView1.Items.Add(listItem);
-                            form2.listView1.Items.Add(currentOrder[y].PlayerName);
+
+                            form2.listView1.Items.Add(listItem);
                             
                         }
                     }
@@ -181,18 +196,34 @@ namespace Initiative_Tracker
             }*/
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void nextButton_Click(object sender, EventArgs e)
         {
             turn++;
 
             var lvi = currentOrder[0];
             currentOrder.RemoveAt(0);
             currentOrder.Insert(currentOrder.Count,lvi);
-            listView1.Items.Clear();
+            dataGridView1.Rows.Clear();
+            //dataGridView1.Items.Clear();
             form2.listView1.Items.Clear();
             for (int y = 0; y < currentOrder.Count; y++)
             {
-                listView1.Items.Add(currentOrder[y].PlayerName);
+                this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                foreach(Ability a in currentOrder[y].abilities)
+                {
+                    a.AbilityDuration--;
+                    if (dataGridView1["Abilities", y].Value.ToString() == "")
+                    {
+                        dataGridView1["Abilities", y].Value = a.AbilityName;
+                        dataGridView1["Rounds", y].Value = a.AbilityDuration.ToString();
+                    }
+                    else
+                    {
+                        dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                        dataGridView1["Rounds", y].Value += "\n" + a.AbilityDuration.ToString();
+                    }
+                }
+                //dataGridView1.Items.Add(currentOrder[y].PlayerName);
                 form2.listView1.Items.Add(currentOrder[y].PlayerName);
             }
 
@@ -247,8 +278,11 @@ namespace Initiative_Tracker
             */
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {/*
+        private void backButton_Click(object sender, EventArgs e)
+        {
+
+            MessageBox.Show("To be Implemented");
+            /*
             string tempName;        // BACK
             
             tempName = player1.Text;
@@ -273,11 +307,70 @@ namespace Initiative_Tracker
                 {
                     string val = addAbilityForm.NewAbility;
                     var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;
-                    currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(val);
-                    var index = (listView1.Items.IndexOfKey(characterName));
-                        listView1.Items[(listView1.Items.IndexOfKey(characterName))].SubItems[1].Text = val;
+                    Ability newAbility = abilitiesList[0].Class.Find(item => item.Classname == playerList[s].PlayerClass).abilities.Find(ability => ability.AbilityName == val);
+                    currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(newAbility);
+
+                    int rowIndex = -1;
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        if (row.Cells[0].Value.ToString().Equals(characterName))
+                        {
+                            rowIndex = row.Index;
+                            break;
+                        }
+                    }
+                    if (dataGridView1["Abilities", rowIndex].Value.ToString() == "")
+                    {
+                        dataGridView1["Abilities", rowIndex].Value = newAbility.AbilityName;
+                        dataGridView1["Rounds",rowIndex].Value = newAbility.AbilityDuration.ToString();
+                    }
+                    else
+                    {
+                        dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;
+                        dataGridView1["Rounds", rowIndex].Value += "\n" + newAbility.AbilityDuration.ToString();
+                    }
                 }
             }
+        }
+
+        private void AddCondtion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("To be Implemented");
+            /*
+            /////////////////////////////////////////////////////////////////////////////////////////FIX TO USE CHARACTERS NAME///////////////////////////////////////////////////////////////////////////
+            int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
+            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, playerList[s].PlayerClass))//create the add ability form and send it the abilitiesList
+            {
+                var result = addAbilityForm.ShowDialog();//Show the add abilities form
+
+                if (result == DialogResult.OK)
+                {
+                    string val = addAbilityForm.NewAbility;
+                    var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;
+                    Ability newAbility = abilitiesList[0].Class.Find(item => item.Classname == playerList[s].PlayerClass).abilities.Find(ability => ability.AbilityName == val);
+                    currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(newAbility);
+
+                    int rowIndex = -1;
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        if (row.Cells[0].Value.ToString().Equals(characterName))
+                        {
+                            rowIndex = row.Index;
+                            break;
+                        }
+                    }
+                    if (dataGridView1["Abilities", rowIndex].Value.ToString() == "")
+                    {
+                        dataGridView1["Abilities", rowIndex].Value = newAbility.AbilityName;
+                        dataGridView1["Rounds", rowIndex].Value = newAbility.AbilityDuration;
+                    }
+                    else
+                    {
+                        dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;
+                        dataGridView1["Rounds", rowIndex].Value += "\n" + newAbility.AbilityDuration;
+                    }
+                }
+            }*/
         }
 
         private InfoLayout CreateInfoLayout()
@@ -313,7 +406,6 @@ namespace Initiative_Tracker
             infoLayout.Initiative.TabIndex = 13;
             infoLayout.Initiative.Text = $"{enterInitiative.Text}";
 
-
             infoLayout.AddAbility.Location = new System.Drawing.Point(270, 31 + vOffset);
             infoLayout.AddAbility.Name = $"AddAbility{infoLayoutList.Count + 1}";
             infoLayout.AddAbility.Size = new System.Drawing.Size(133,23);
@@ -321,6 +413,14 @@ namespace Initiative_Tracker
             infoLayout.AddAbility.Text = "Add Ability";
             infoLayout.AddAbility.UseVisualStyleBackColor = true;
             infoLayout.AddAbility.Click += new System.EventHandler(this.AddAbility_Click);
+
+            infoLayout.AddCondtion.Location = new System.Drawing.Point(300, 31 + vOffset);
+            infoLayout.AddCondtion.Name = $"AddCondtion{infoLayoutList.Count + 1}";
+            infoLayout.AddCondtion.Size = new System.Drawing.Size(133, 23);
+            infoLayout.AddCondtion.TabIndex = 1;
+            infoLayout.AddCondtion.Text = "AddCondtion";
+            infoLayout.AddCondtion.UseVisualStyleBackColor = true;
+            infoLayout.AddCondtion.Click += new System.EventHandler(this.AddCondtion_Click);
 
             return infoLayout;
         }

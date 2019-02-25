@@ -1,4 +1,6 @@
-﻿namespace Initiative_Tracker
+﻿using System.Windows.Forms;
+
+namespace Initiative_Tracker
 {
     partial class Form1
     {
@@ -28,13 +30,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addToListButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
             this.enterInitiative = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Ability = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Roundsleft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,6 +53,10 @@
             this.enterName = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.CharacterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Abilities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rounds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.characterTab.SuspendLayout();
@@ -66,27 +73,27 @@
             this.addToListButton.UseVisualStyleBackColor = true;
             this.addToListButton.Click += new System.EventHandler(this.addToListButton_Click);
             // 
-            // button2
+            // nextButton
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(531, 294);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(257, 112);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Next";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextButton.Location = new System.Drawing.Point(531, 294);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(257, 112);
+            this.nextButton.TabIndex = 1;
+            this.nextButton.Text = "Next";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
-            // button3
+            // backButton
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(12, 294);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(257, 112);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Back";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backButton.Location = new System.Drawing.Point(12, 294);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(257, 112);
+            this.backButton.TabIndex = 2;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // enterInitiative
             // 
@@ -115,16 +122,26 @@
             // 
             // listView1
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Player,
-            this.Ability,
-            this.Roundsleft});
-            this.listView1.Location = new System.Drawing.Point(531, 139);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(257, 149);
-            this.listView1.TabIndex = 31;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CharacterName,
+            this.Abilities,
+            this.Rounds});
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Location = new System.Drawing.Point(537, 139);
+            this.dataGridView1.Name = "listView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.ShowCellErrors = false;
+            this.dataGridView1.ShowCellToolTips = false;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.ShowRowErrors = false;
+            this.dataGridView1.Size = new System.Drawing.Size(257, 149);
+            this.dataGridView1.TabIndex = 31;
+            this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             // 
             // Player
             // 
@@ -168,12 +185,12 @@
             // 
             this.homeTab.Controls.Add(this.characterListBox);
             this.homeTab.Controls.Add(this.participantsBox);
-            this.homeTab.Controls.Add(this.listView1);
+            this.homeTab.Controls.Add(this.dataGridView1);
             this.homeTab.Controls.Add(this.label2);
             this.homeTab.Controls.Add(this.label1);
             this.homeTab.Controls.Add(this.enterInitiative);
-            this.homeTab.Controls.Add(this.button3);
-            this.homeTab.Controls.Add(this.button2);
+            this.homeTab.Controls.Add(this.backButton);
+            this.homeTab.Controls.Add(this.nextButton);
             this.homeTab.Controls.Add(this.addToListButton);
             this.homeTab.Location = new System.Drawing.Point(4, 22);
             this.homeTab.Name = "homeTab";
@@ -271,6 +288,25 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // CharacterName
+            // 
+            this.CharacterName.HeaderText = "CharacterName";
+            this.CharacterName.Name = "CharacterName";
+            this.CharacterName.ReadOnly = true;
+            // 
+            // Abilities
+            // 
+            this.Abilities.HeaderText = "Abilities";
+            this.Abilities.Name = "Abilities";
+            this.Abilities.ReadOnly = true;
+            this.Abilities.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            // 
+            // Rounds
+            // 
+            this.Rounds.HeaderText = "Rounds";
+            this.Rounds.Name = "Rounds";
+            this.Rounds.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +317,7 @@
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
             this.homeTab.PerformLayout();
@@ -296,12 +333,12 @@
         #endregion
 
         private System.Windows.Forms.Button addToListButton;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox enterInitiative;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ColumnHeader Ability;
         private System.Windows.Forms.ColumnHeader Roundsleft;
         private System.Windows.Forms.ColumnHeader Player;
@@ -317,6 +354,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox classSelect;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CharacterName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Abilities;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Rounds;
     }
 }
 
