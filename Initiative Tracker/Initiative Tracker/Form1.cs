@@ -34,31 +34,14 @@ namespace Initiative_Tracker
             json = File.ReadAllText("Beastiary.json");//read the Beastiary.json file
             beastiaryList = JsonConvert.DeserializeObject<List<Player>>(json);//populate the beastiaryList with all abilites found in the Beastiary.json
             json = File.ReadAllText("Abilities.json");//read the Abilities.json file
-            abilitiesList = JsonConvert.DeserializeObject<List<RootObject>>(json);//populate the abilitiesList with all abilites found in the Abiliteis.json
+            abilitiesList = JsonConvert.DeserializeObject<List<RootObject>>(json);//populate the abilitiesList with all abilites found in the Abiliteis.
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Screen.AllScreens.Length > 1)//check if there is more then one screen
-            {
-                if (Screen.AllScreens[0].Primary)
-                {
-                    //if there is more then one screen set the player screen location to the second screen.
-                    form2.Location = Screen.AllScreens[1].WorkingArea.Location;
-                }
-                else
-                {
-                    //if there is more then one screen set the player screen location to the second screen.
-                    form2.Location = Screen.AllScreens[0].WorkingArea.Location;
-                }
-                form2.Show();//show the player screen
-            }
-            else//if only one screen show the open player screen button
-            {
-                form2Show.Visible = true;
-            }
+            form2Show_Click(new object(), new EventArgs());
             //add all characters from the player json to the player selection box.
-            for(var x = 0; x<playerList.Count;x++)
+            for (var x = 0; x<playerList.Count;x++)
             {
                 characterListBox.Items.Add(playerList[x].PlayerName);
             }
@@ -249,15 +232,20 @@ namespace Initiative_Tracker
                     {
                         a.RemainingRounds--;
                     }
-                    if (dataGridView1["Abilities", y].Value.ToString() == "")
+                    if (a.RemainingRounds >= 0)
                     {
-                        dataGridView1["Abilities", y].Value = a.AbilityName;
-                        dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                    }
-                    else
-                    {
-                        dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                        dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+
+
+                        if (dataGridView1["Abilities", y].Value.ToString() == "")
+                        {
+                            dataGridView1["Abilities", y].Value = a.AbilityName;
+                            dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                        }
+                        else
+                        {
+                            dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                            dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                        }
                     }
                 }
                 form2.listView1.Items.Add(currentOrder[y].PlayerName);
@@ -329,6 +317,7 @@ namespace Initiative_Tracker
 
                 for (int y = 0; y < currentOrder.Count; y++)
                 {
+                    List<Ability> abilitiesToRemove= new List<Ability>();
                     this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
                     foreach (Ability a in currentOrder[y].abilities)
                     {
@@ -339,7 +328,7 @@ namespace Initiative_Tracker
 
                         if (a.RemainingRounds > a.AbilityDuration)
                         {
-                            currentOrder[y].abilities.Remove(a);
+                            abilitiesToRemove.Add(a);
                         }
                         else
                         {
@@ -354,6 +343,10 @@ namespace Initiative_Tracker
                                 dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                             }
                         }
+                    }
+                    for (var x = abilitiesToRemove.Count; x > 0; x--)
+                    {
+                        currentOrder[y].abilities.Remove(abilitiesToRemove[x-1]);
                     }
                     form2.listView1.Items.Add(currentOrder[y].PlayerName);
                 }
@@ -556,7 +549,7 @@ namespace Initiative_Tracker
                 initiativeOrder.Clear();
                 currentOrder.Clear();
                 dataGridView1.Rows.Clear();
-                form2.listView1.Clear();
+                form2.listView1.Items.Clear();
                 foreach(InfoLayout ILI in infoLayoutList)
                 {
                     participantBoxPanel.Controls.Remove(ILI.abilities);
@@ -582,8 +575,29 @@ namespace Initiative_Tracker
 
         private void form2Show_Click(object sender, EventArgs e)
         {
-            form2.Show();
-            form2Show.Visible = false;
+            if(form2.IsDisposed)
+            {
+                form2 = new Form2();
+            }
+            if (Screen.AllScreens.Length > 1)//check if there is more then one screen
+            {
+                if (Screen.AllScreens[0].Primary)
+                {
+                    //if there is more then one screen set the player screen location to the second screen.
+                    form2.Location = Screen.AllScreens[1].WorkingArea.Location;
+                }
+                else
+                {
+                    //if there is more then one screen set the player screen location to the second screen.
+                    form2.Location = Screen.AllScreens[0].WorkingArea.Location;
+                }
+                form2.Show();//show the player screen
+                form2.FormClosed += (s, a) => form2Show.Show();
+            }
+            else//if only one screen show the open player screen button
+            {
+                form2Show.Visible = true;
+            }
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
