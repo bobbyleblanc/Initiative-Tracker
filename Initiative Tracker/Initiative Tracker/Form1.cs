@@ -151,7 +151,10 @@ namespace Initiative_Tracker
 
                 MessageBox.Show("Please enter the characters initiative.");
             }
-
+            if (currentOrder.Count == 1)
+            {
+                endCombat.Show();
+            }
 
             /*if (enterName.Text == "")
             {
@@ -532,14 +535,47 @@ namespace Initiative_Tracker
 
         private void endCombat_Click(object sender, EventArgs e)
         {
-
-            MessageBox.Show("To be implemented");
+            var confirmResult = MessageBox.Show("Are you sure want to end combat? All participants will be removed",
+                                     "Confirm Ending Combat",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                initiativeOrder.Clear();
+                currentOrder.Clear();
+                dataGridView1.Rows.Clear();
+                form2.listView1.Clear();
+                foreach(InfoLayout ILI in infoLayoutList)
+                {
+                    participantBoxPanel.Controls.Remove(ILI.abilities);
+                    participantBoxPanel.Controls.Remove(ILI.playerName);
+                    participantBoxPanel.Controls.Remove(ILI.HP);
+                    participantBoxPanel.Controls.Remove(ILI.AddAbility);
+                    participantBoxPanel.Controls.Remove(ILI.AddCondition);
+                    participantBoxPanel.Controls.Remove(ILI.Initiative);
+                    ILI.abilities.Dispose(); 
+                    ILI.playerName.Dispose(); 
+                    ILI.HP.Dispose();
+                    ILI.AddAbility.Dispose();
+                    ILI.AddCondition.Dispose();
+                    ILI.Initiative.Dispose();
+                }
+                infoLayoutList.Clear();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void form2Show_Click(object sender, EventArgs e)
         {
             form2.Show();
             form2Show.Visible = false;
+        }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            form2.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", Int32.Parse(toolStripComboBox1.SelectedItem.ToString()));
         }
     }
 }
