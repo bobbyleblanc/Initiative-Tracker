@@ -41,8 +41,16 @@ namespace Initiative_Tracker
         {
             if (Screen.AllScreens.Length > 1)//check if there is more then one screen
             {
-                //if there is more then one screen set the player screen location to the second screen.
-                form2.Location = Screen.AllScreens[1].WorkingArea.Location;
+                if (Screen.AllScreens[0].Primary)
+                {
+                    //if there is more then one screen set the player screen location to the second screen.
+                    form2.Location = Screen.AllScreens[1].WorkingArea.Location;
+                }
+                else
+                {
+                    //if there is more then one screen set the player screen location to the second screen.
+                    form2.Location = Screen.AllScreens[0].WorkingArea.Location;
+                }
                 form2.Show();//show the player screen
             }
             else//if only one screen show the open player screen button
@@ -361,7 +369,7 @@ namespace Initiative_Tracker
         private void AddAbility_Click(object sender, EventArgs e)
         {
             int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
-            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, playerList[s].PlayerClass))//create the add ability form and send it the abilitiesList
+            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, playerList[s-1].PlayerClass))//create the add ability form and send it the abilitiesList
             {
                 var result = addAbilityForm.ShowDialog();//Show the add abilities form
 
@@ -369,7 +377,7 @@ namespace Initiative_Tracker
                 {
                     string val = addAbilityForm.NewAbility; //fetch the selected ability from the addAbility form
                     var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;//fetch the character name that we are adding the ability too.
-                    Ability newAbility = abilitiesList[0].Class.Find(item => item.Classname == playerList[s].PlayerClass).abilities.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
+                    Ability newAbility = abilitiesList[0].Class.Find(item => item.Classname == playerList[s-1].PlayerClass).abilities.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
                     currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(newAbility);//find the character in the current order list and add the new ability to them.
 
                     int rowIndex = -1;

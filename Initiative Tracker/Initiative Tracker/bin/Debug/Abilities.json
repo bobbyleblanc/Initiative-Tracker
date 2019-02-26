@@ -6,11 +6,13 @@
         "abilities": [
           {
             "AbilityName": "Rage",
-            "AbilityDuration": "10"
+            "AbilityDuration": "10",
+            "RemainingRounds": "10"
           },
           {
             "AbilityName": "Fight",
-            "AbilityDuration": "10"
+            "AbilityDuration": "10",
+            "RemainingRounds": "10"
           }
         ]
       },
@@ -19,7 +21,8 @@
         "abilities": [
           {
             "AbilityName": "Rage",
-            "AbilityDuration": "10"
+            "AbilityDuration": "10",
+            "RemainingRounds": "10"
           }
         ]
       },
@@ -40,7 +43,8 @@
           },
           {
             "AbilityName": "First Strike",
-            "AbilityDuration": "5"
+            "AbilityDuration": "5",
+            "RemainingRounds": "5"
           }
         ]
       },
