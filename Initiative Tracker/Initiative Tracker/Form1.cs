@@ -124,6 +124,7 @@ namespace Initiative_Tracker
                         }
                     }
                 }
+                characterListBox.Items.Remove(characterListBox.SelectedItem);
             }
             else if(characterListBox.SelectedIndex == -1)//ensure a name was entered
             {
@@ -138,39 +139,6 @@ namespace Initiative_Tracker
             {
                 endCombat.Show();
             }
-
-            /*if (enterName.Text == "")
-            {
-                Button button = new Button();
-                this.Controls.Add(button);
-                button.Location = new Point(450, 70);
-                button.Size = new Size(40, 100);
-                button.Text = "Created text";
-            }
-            else
-            {
-                if (playerList.Count() >= 1)
-                {
-                    playerList.Insert(insertIndex(Convert.ToInt32(enterInitiative.Text)), new Player
-                    {
-                        PlayerName = enterName.Text,
-                        PlayerInitiative = Convert.ToInt32(enterInitiative.Text)
-                    });
-
-                    
-                }
-                else
-                {
-                    playerList.Add(new Player
-                    {
-                        PlayerName = enterName.Text,
-                        PlayerInitiative = Convert.ToInt32(enterInitiative.Text)
-                    });
-                }
-                updateOrder();
-                enterName.Text = "";
-                enterInitiative.Text = "";
-            }*/
         }
 
         private int insertIndex(int playerInitiative)
@@ -261,51 +229,6 @@ namespace Initiative_Tracker
                     round++;
                 }
             }
-
-            /*
-            bool first = true;
-
-            
-            foreach (ListViewItem lvi in listView1.SelectedItems)
-            {
-                if (first)
-                {
-                    int index = initiativeOrder.Count;
-                    listView1.Items.RemoveAt(lvi.Index);
-                    listView1.Items.Insert(index, lvi);
-                }
-                if (lvi.Index > 0)
-                {
-                    int index = lvi.Index - 1;
-                    listView1.Items.RemoveAt(lvi.Index);
-                    listView1.Items.Insert(index, lvi);
-                }
-            }
-            */
-
-            /*
-            string tempName;        // NEXT
-
-            for(int i=0; i < listView1.Items.Count; i++)
-            {
-                if (listView1.Items[i].SubItems[0].Text == player1.Text)
-                {
-                    int temp = Convert.ToInt32(listView1.Items[i].SubItems[2].Text) - 1;
-                    listView1.Items[i].SubItems[2].Text = Convert.ToString(temp);
-                    if(listView1.Items[i].SubItems[2].Text=="0")
-                       listView1.Items[i].Remove();
-
-                }
-            }
-            
-            tempName = player1.Text;
-            player1.Text = player2.Text;
-            player2.Text = player3.Text;
-            player3.Text = player4.Text;
-            player4.Text = player5.Text;
-            player5.Text = player6.Text;
-            player6.Text = tempName;
-            */
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -574,6 +497,11 @@ namespace Initiative_Tracker
                     ILI.Initiative.Dispose();
                 }
                 infoLayoutList.Clear();
+                characterListBox.Items.Clear();
+                for (var x = 0; x < playerList.Count; x++)
+                {
+                    characterListBox.Items.Add(playerList[x].PlayerName);
+                }
             }
             else
             {
