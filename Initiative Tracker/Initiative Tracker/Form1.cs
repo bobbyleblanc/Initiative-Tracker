@@ -86,19 +86,22 @@ namespace Initiative_Tracker
                         participantBoxPanel.Controls.Add(infolist.AddAbility);
                         participantBoxPanel.Controls.Add(infolist.AddCondition);
 
+                        //set the players initiative equal to the entered initiative
                         playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()).PlayerInitiative = Int32.Parse(enterInitiative.Text);
 
-                        initiativeOrder.Add(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
-                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();
-                        var index = initiativeOrder.IndexOf(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
-                        var temp = index - turn;
-                        if (temp >= 0)
+                        
+                        initiativeOrder.Add(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//add the new player to the initiative order list
+                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
+
+                        var index = initiativeOrder.IndexOf(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//get the index value for the inserted player
+                        var temp = index - turn;//get where they would fall within the turn
+                        if (temp >= 0)//if their turn hasn't passed this round
                         {
-                            currentOrder.Insert(index - turn, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                            currentOrder.Insert(index - turn, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//insert the new player in the correct porstion of the current order list
                         }
                         else
                         {
-                            currentOrder.Insert(currentOrder.Count-turn-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                            currentOrder.Insert(currentOrder.Count-turn-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//insert the new player in the ocrrect porstion of the current order list
                         }
                         dataGridView1.Rows.Clear();
                         //listView1.Items.Clear();
@@ -111,12 +114,12 @@ namespace Initiative_Tracker
                                 if (dataGridView1["Abilities", y].Value.ToString() == "")
                                 {
                                     dataGridView1["Abilities", y].Value = a.AbilityName;
-                                    dataGridView1["Rounds", y].Value = a.AbilityDuration.ToString();
+                                    dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
                                 }
                                 else
                                 {
                                     dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                    dataGridView1["Rounds", y].Value += "\n" + a.AbilityDuration.ToString();
+                                    dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                                 }
                             }
 
@@ -233,17 +236,17 @@ namespace Initiative_Tracker
                 {
                     if(y == currentOrder.Count -1)
                     {
-                        a.AbilityDuration--;
+                        a.RemainingRounds--;
                     }
                     if (dataGridView1["Abilities", y].Value.ToString() == "")
                     {
                         dataGridView1["Abilities", y].Value = a.AbilityName;
-                        dataGridView1["Rounds", y].Value = a.AbilityDuration.ToString();
+                        dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
                     }
                     else
                     {
                         dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                        dataGridView1["Rounds", y].Value += "\n" + a.AbilityDuration.ToString();
+                        dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                     }
                 }
                 form2.listView1.Items.Add(currentOrder[y].PlayerName);
@@ -320,17 +323,25 @@ namespace Initiative_Tracker
                     {
                         if (y == 0)
                         {
-                            a.AbilityDuration++;
+                            a.RemainingRounds++;
                         }
-                        if (dataGridView1["Abilities", y].Value.ToString() == "")
+
+                        if (a.RemainingRounds > a.AbilityDuration)
                         {
-                            dataGridView1["Abilities", y].Value = a.AbilityName;
-                            dataGridView1["Rounds", y].Value = a.AbilityDuration.ToString();
+                            currentOrder[y].abilities.Remove(a);
                         }
                         else
                         {
-                            dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                            dataGridView1["Rounds", y].Value += "\n" + a.AbilityDuration.ToString();
+                            if (dataGridView1["Abilities", y].Value.ToString() == "")
+                            {
+                                dataGridView1["Abilities", y].Value = a.AbilityName;
+                                dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                            }
+                            else
+                            {
+                                dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                            }
                         }
                     }
                     form2.listView1.Items.Add(currentOrder[y].PlayerName);
@@ -345,18 +356,6 @@ namespace Initiative_Tracker
                 turn = currentOrder.Count - 1;
                 round--;
             }
-
-            /*
-            string tempName;        // BACK
-            
-            tempName = player1.Text;
-            player1.Text = player6.Text;
-            player6.Text = player5.Text;
-            player5.Text = player4.Text;
-            player4.Text = player3.Text;
-            player3.Text = player2.Text;
-            player2.Text = tempName;
-            */
         }
         //add a new ability to a character
         private void AddAbility_Click(object sender, EventArgs e)
@@ -386,12 +385,12 @@ namespace Initiative_Tracker
                     if (dataGridView1["Abilities", rowIndex].Value.ToString() == "")//check if character has no abilities yet
                     {
                         dataGridView1["Abilities", rowIndex].Value = newAbility.AbilityName;//add the new abilities name
-                        dataGridView1["Rounds",rowIndex].Value = newAbility.AbilityDuration.ToString();//add the new abilities duration
+                        dataGridView1["Rounds",rowIndex].Value = newAbility.RemainingRounds.ToString();//add the new abilities duration
                     }
                     else
                     {
                         dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;//add the new ability one a new line 
-                        dataGridView1["Rounds", rowIndex].Value += "\n" + newAbility.AbilityDuration.ToString(); //add the new abilities duration on a new line.
+                        dataGridView1["Rounds", rowIndex].Value += "\n" + newAbility.RemainingRounds.ToString(); //add the new abilities duration on a new line.
                     }
                 }
             }

@@ -28,6 +28,7 @@ namespace Initiative_Tracker
     public class Ability
     {
         public string AbilityName { get; set; }
+        public int RemainingRounds { get; set; }
         public int AbilityDuration { get; set; }
     }
 
