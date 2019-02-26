@@ -30,7 +30,8 @@ namespace Initiative_Tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addToListButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
@@ -38,10 +39,17 @@ namespace Initiative_Tracker
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.CharacterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Abilities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rounds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Ability = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Roundsleft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.participantsBox = new System.Windows.Forms.GroupBox();
+            this.participantBoxPanel = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
             this.characterListBox = new System.Windows.Forms.ListBox();
@@ -53,10 +61,16 @@ namespace Initiative_Tracker
             this.enterName = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.CharacterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Abilities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rounds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.beastiaryListBox = new System.Windows.Forms.ListBox();
+            this.beastInitiative = new System.Windows.Forms.TextBox();
+            this.AddMonster = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.endCombat = new System.Windows.Forms.Button();
+            this.form2Show = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.participantsBox.SuspendLayout();
+            this.participantBoxPanel.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.characterTab.SuspendLayout();
@@ -65,18 +79,18 @@ namespace Initiative_Tracker
             // 
             // addToListButton
             // 
-            this.addToListButton.Location = new System.Drawing.Point(585, 102);
+            this.addToListButton.Location = new System.Drawing.Point(724, 44);
             this.addToListButton.Name = "addToListButton";
             this.addToListButton.Size = new System.Drawing.Size(133, 23);
             this.addToListButton.TabIndex = 0;
-            this.addToListButton.Text = "Add to List";
+            this.addToListButton.Text = "Add to Combat";
             this.addToListButton.UseVisualStyleBackColor = true;
             this.addToListButton.Click += new System.EventHandler(this.addToListButton_Click);
             // 
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextButton.Location = new System.Drawing.Point(531, 294);
+            this.nextButton.Location = new System.Drawing.Point(600, 294);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(257, 112);
             this.nextButton.TabIndex = 1;
@@ -87,7 +101,7 @@ namespace Initiative_Tracker
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.backButton.Location = new System.Drawing.Point(12, 294);
+            this.backButton.Location = new System.Drawing.Point(21, 294);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(257, 112);
             this.backButton.TabIndex = 2;
@@ -97,7 +111,7 @@ namespace Initiative_Tracker
             // 
             // enterInitiative
             // 
-            this.enterInitiative.Location = new System.Drawing.Point(675, 66);
+            this.enterInitiative.Location = new System.Drawing.Point(663, 44);
             this.enterInitiative.Name = "enterInitiative";
             this.enterInitiative.Size = new System.Drawing.Size(55, 20);
             this.enterInitiative.TabIndex = 10;
@@ -105,7 +119,7 @@ namespace Initiative_Tracker
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(534, 50);
+            this.label1.Location = new System.Drawing.Point(534, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 11;
@@ -114,34 +128,54 @@ namespace Initiative_Tracker
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(672, 50);
+            this.label2.Location = new System.Drawing.Point(660, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Initiative";
             // 
-            // listView1
+            // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CharacterName,
             this.Abilities,
             this.Rounds});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(537, 139);
-            this.dataGridView1.Name = "listView1";
+            this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ShowCellErrors = false;
             this.dataGridView1.ShowCellToolTips = false;
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(257, 149);
+            this.dataGridView1.Size = new System.Drawing.Size(320, 149);
             this.dataGridView1.TabIndex = 31;
-            this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            // 
+            // CharacterName
+            // 
+            this.CharacterName.HeaderText = "CharacterName";
+            this.CharacterName.Name = "CharacterName";
+            this.CharacterName.ReadOnly = true;
+            // 
+            // Abilities
+            // 
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Abilities.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Abilities.HeaderText = "Abilities";
+            this.Abilities.Name = "Abilities";
+            this.Abilities.ReadOnly = true;
+            // 
+            // Rounds
+            // 
+            this.Rounds.HeaderText = "Rounds";
+            this.Rounds.Name = "Rounds";
+            this.Rounds.ReadOnly = true;
             // 
             // Player
             // 
@@ -163,12 +197,52 @@ namespace Initiative_Tracker
             // participantsBox
             // 
             this.participantsBox.AutoSize = true;
+            this.participantsBox.Controls.Add(this.participantBoxPanel);
             this.participantsBox.Location = new System.Drawing.Point(21, 27);
             this.participantsBox.Name = "participantsBox";
-            this.participantsBox.Size = new System.Drawing.Size(487, 250);
+            this.participantsBox.Size = new System.Drawing.Size(487, 261);
             this.participantsBox.TabIndex = 32;
             this.participantsBox.TabStop = false;
             this.participantsBox.Text = "Current Participants";
+            // 
+            // participantBoxPanel
+            // 
+            this.participantBoxPanel.AutoScroll = true;
+            this.participantBoxPanel.Controls.Add(this.label7);
+            this.participantBoxPanel.Controls.Add(this.label6);
+            this.participantBoxPanel.Controls.Add(this.label5);
+            this.participantBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.participantBoxPanel.Location = new System.Drawing.Point(3, 16);
+            this.participantBoxPanel.Name = "participantBoxPanel";
+            this.participantBoxPanel.Size = new System.Drawing.Size(481, 242);
+            this.participantBoxPanel.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(100, 4);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(22, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "HP";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(30, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Name";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(5, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(24, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Init.";
             // 
             // tabControl1
             // 
@@ -178,11 +252,18 @@ namespace Initiative_Tracker
             this.tabControl1.Location = new System.Drawing.Point(3, 23);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(817, 449);
+            this.tabControl1.Size = new System.Drawing.Size(883, 449);
             this.tabControl1.TabIndex = 33;
             // 
             // homeTab
             // 
+            this.homeTab.Controls.Add(this.form2Show);
+            this.homeTab.Controls.Add(this.endCombat);
+            this.homeTab.Controls.Add(this.label8);
+            this.homeTab.Controls.Add(this.label9);
+            this.homeTab.Controls.Add(this.beastiaryListBox);
+            this.homeTab.Controls.Add(this.beastInitiative);
+            this.homeTab.Controls.Add(this.AddMonster);
             this.homeTab.Controls.Add(this.characterListBox);
             this.homeTab.Controls.Add(this.participantsBox);
             this.homeTab.Controls.Add(this.dataGridView1);
@@ -195,7 +276,7 @@ namespace Initiative_Tracker
             this.homeTab.Location = new System.Drawing.Point(4, 22);
             this.homeTab.Name = "homeTab";
             this.homeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.homeTab.Size = new System.Drawing.Size(809, 423);
+            this.homeTab.Size = new System.Drawing.Size(875, 423);
             this.homeTab.TabIndex = 0;
             this.homeTab.Text = "Home";
             this.homeTab.UseVisualStyleBackColor = true;
@@ -203,7 +284,7 @@ namespace Initiative_Tracker
             // characterListBox
             // 
             this.characterListBox.FormattingEnabled = true;
-            this.characterListBox.Location = new System.Drawing.Point(537, 66);
+            this.characterListBox.Location = new System.Drawing.Point(537, 43);
             this.characterListBox.Name = "characterListBox";
             this.characterListBox.Size = new System.Drawing.Size(120, 30);
             this.characterListBox.TabIndex = 33;
@@ -277,47 +358,95 @@ namespace Initiative_Tracker
             this.panel1.Name = "panel1";
             this.panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel1.Size = new System.Drawing.Size(823, 475);
+            this.panel1.Size = new System.Drawing.Size(889, 475);
             this.panel1.TabIndex = 34;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(823, 20);
+            this.menuStrip1.Size = new System.Drawing.Size(889, 20);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // CharacterName
+            // beastiaryListBox
             // 
-            this.CharacterName.HeaderText = "CharacterName";
-            this.CharacterName.Name = "CharacterName";
-            this.CharacterName.ReadOnly = true;
+            this.beastiaryListBox.FormattingEnabled = true;
+            this.beastiaryListBox.Location = new System.Drawing.Point(537, 94);
+            this.beastiaryListBox.Name = "beastiaryListBox";
+            this.beastiaryListBox.Size = new System.Drawing.Size(120, 30);
+            this.beastiaryListBox.TabIndex = 36;
             // 
-            // Abilities
+            // beastInitiative
             // 
-            this.Abilities.HeaderText = "Abilities";
-            this.Abilities.Name = "Abilities";
-            this.Abilities.ReadOnly = true;
-            this.Abilities.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            this.beastInitiative.Location = new System.Drawing.Point(663, 95);
+            this.beastInitiative.Name = "beastInitiative";
+            this.beastInitiative.Size = new System.Drawing.Size(55, 20);
+            this.beastInitiative.TabIndex = 35;
             // 
-            // Rounds
+            // AddMonster
             // 
-            this.Rounds.HeaderText = "Rounds";
-            this.Rounds.Name = "Rounds";
-            this.Rounds.ReadOnly = true;
+            this.AddMonster.Location = new System.Drawing.Point(724, 95);
+            this.AddMonster.Name = "AddMonster";
+            this.AddMonster.Size = new System.Drawing.Size(133, 23);
+            this.AddMonster.TabIndex = 34;
+            this.AddMonster.Text = "Add to Combat";
+            this.AddMonster.UseVisualStyleBackColor = true;
+            this.AddMonster.Click += new System.EventHandler(this.AddMonster_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(660, 79);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 38;
+            this.label8.Text = "Initiative";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(534, 78);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Name";
+            // 
+            // endCombat
+            // 
+            this.endCombat.Location = new System.Drawing.Point(331, 346);
+            this.endCombat.Name = "endCombat";
+            this.endCombat.Size = new System.Drawing.Size(75, 23);
+            this.endCombat.TabIndex = 39;
+            this.endCombat.Text = "End Combat";
+            this.endCombat.UseVisualStyleBackColor = true;
+            this.endCombat.Click += new System.EventHandler(this.endCombat_Click);
+            // 
+            // form2Show
+            // 
+            this.form2Show.Location = new System.Drawing.Point(331, 309);
+            this.form2Show.Name = "form2Show";
+            this.form2Show.Size = new System.Drawing.Size(122, 23);
+            this.form2Show.TabIndex = 40;
+            this.form2Show.Text = "Open player screen";
+            this.form2Show.UseVisualStyleBackColor = true;
+            this.form2Show.Visible = false;
+            this.form2Show.Click += new System.EventHandler(this.form2Show_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 475);
+            this.ClientSize = new System.Drawing.Size(889, 475);
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.participantsBox.ResumeLayout(false);
+            this.participantBoxPanel.ResumeLayout(false);
+            this.participantBoxPanel.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
             this.homeTab.PerformLayout();
@@ -357,6 +486,17 @@ namespace Initiative_Tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn CharacterName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Abilities;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rounds;
+        private Panel participantBoxPanel;
+        private Label label6;
+        private Label label5;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private ListBox beastiaryListBox;
+        private TextBox beastInitiative;
+        private Button AddMonster;
+        private Button endCombat;
+        private Button form2Show;
     }
 }
 

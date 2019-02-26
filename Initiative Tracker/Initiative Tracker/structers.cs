@@ -22,7 +22,7 @@ namespace Initiative_Tracker
         public System.Windows.Forms.Label abilities = new System.Windows.Forms.Label();
         public System.Windows.Forms.Label Initiative = new System.Windows.Forms.Label();
         public System.Windows.Forms.Button AddAbility = new System.Windows.Forms.Button();
-        public System.Windows.Forms.Button AddCondtion = new System.Windows.Forms.Button();
+        public System.Windows.Forms.Button AddCondition = new System.Windows.Forms.Button();
     }
 
     public class Ability

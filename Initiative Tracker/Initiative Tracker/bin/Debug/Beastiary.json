@@ -1,0 +1,16 @@
+[
+  {
+    "PlayerName": "Goblin",
+    "PlayerInitiative": 0,
+    "PlayerClass": "",
+    "HP": 0,
+    "abilities": []
+  },
+  {
+    "abilities": [],
+    "PlayerName": "Knoll",
+    "PlayerInitiative": 0,
+    "PlayerClass": "",
+    "HP": 0
+  }
+]
