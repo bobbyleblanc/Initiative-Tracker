@@ -337,15 +337,18 @@ namespace Initiative_Tracker
                         }
                         else
                         {
-                            if (dataGridView1["Abilities", y].Value.ToString() == "")
+                            if (a.RemainingRounds >= 0)
                             {
-                                dataGridView1["Abilities", y].Value = a.AbilityName;
-                                dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                            }
-                            else
-                            {
-                                dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                if (dataGridView1["Abilities", y].Value.ToString() == "")
+                                {
+                                    dataGridView1["Abilities", y].Value = a.AbilityName;
+                                    dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                                }
+                                else
+                                {
+                                    dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                    dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                }
                             }
                         }
                     }
