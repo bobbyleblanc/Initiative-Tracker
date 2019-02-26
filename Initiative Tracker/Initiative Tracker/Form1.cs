@@ -216,45 +216,50 @@ namespace Initiative_Tracker
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            turn++;
-
-            var lvi = currentOrder[0];
-            currentOrder.RemoveAt(0);
-            currentOrder.Insert(currentOrder.Count,lvi);
-            dataGridView1.Rows.Clear();
-            form2.listView1.Items.Clear();
-            for (int y = 0; y < currentOrder.Count; y++)
+            if (currentOrder.Count == 0)
+            { return; }
+            else
             {
-                this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                foreach(Ability a in currentOrder[y].abilities)
+                turn++;
+
+                var lvi = currentOrder[0];
+                currentOrder.RemoveAt(0);
+                currentOrder.Insert(currentOrder.Count, lvi);
+                dataGridView1.Rows.Clear();
+                form2.listView1.Items.Clear();
+                for (int y = 0; y < currentOrder.Count; y++)
                 {
-                    if(y == currentOrder.Count -1)
+                    this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                    foreach (Ability a in currentOrder[y].abilities)
                     {
-                        a.RemainingRounds--;
-                    }
-                    if (a.RemainingRounds >= 0)
-                    {
+                        if (y == currentOrder.Count - 1)
+                        {
+                            a.RemainingRounds--;
+                        }
+                        if (a.RemainingRounds >= 0)
+                        {
 
 
-                        if (dataGridView1["Abilities", y].Value.ToString() == "")
-                        {
-                            dataGridView1["Abilities", y].Value = a.AbilityName;
-                            dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                        }
-                        else
-                        {
-                            dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                            dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                            if (dataGridView1["Abilities", y].Value.ToString() == "")
+                            {
+                                dataGridView1["Abilities", y].Value = a.AbilityName;
+                                dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                            }
+                            else
+                            {
+                                dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                            }
                         }
                     }
+                    form2.listView1.Items.Add(currentOrder[y].PlayerName);
                 }
-                form2.listView1.Items.Add(currentOrder[y].PlayerName);
-            }
 
-            if(turn == currentOrder.Count)
-            {
-                turn = 0;
-                round++;
+                if (turn == currentOrder.Count)
+                {
+                    turn = 0;
+                    round++;
+                }
             }
 
             /*
