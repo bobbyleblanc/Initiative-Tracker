@@ -31,6 +31,7 @@ namespace Initiative_Tracker
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addToListButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
@@ -152,6 +153,8 @@ namespace Initiative_Tracker
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ShowCellErrors = false;
             this.dataGridView1.ShowCellToolTips = false;
             this.dataGridView1.ShowEditingIcon = false;
@@ -161,23 +164,32 @@ namespace Initiative_Tracker
             // 
             // CharacterName
             // 
+            this.CharacterName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.CharacterName.HeaderText = "CharacterName";
             this.CharacterName.Name = "CharacterName";
             this.CharacterName.ReadOnly = true;
+            this.CharacterName.ToolTipText = "the character";
+            this.CharacterName.Width = 106;
             // 
             // Abilities
             // 
+            this.Abilities.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Abilities.DefaultCellStyle = dataGridViewCellStyle2;
             this.Abilities.HeaderText = "Abilities";
             this.Abilities.Name = "Abilities";
             this.Abilities.ReadOnly = true;
+            this.Abilities.ToolTipText = "Abilities charactes currently have going.";
+            this.Abilities.Width = 67;
             // 
             // Rounds
             // 
+            this.Rounds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Rounds.HeaderText = "Rounds";
             this.Rounds.Name = "Rounds";
             this.Rounds.ReadOnly = true;
+            this.Rounds.ToolTipText = "Number of rounds remaining for abilities.";
+            this.Rounds.Width = 69;
             // 
             // Player
             // 
@@ -504,9 +516,6 @@ namespace Initiative_Tracker
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox classSelect;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CharacterName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Abilities;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rounds;
         private Panel participantBoxPanel;
         private Label label6;
         private Label label5;
@@ -519,6 +528,9 @@ namespace Initiative_Tracker
         private Button endCombat;
         private Button form2Show;
         private ToolStripComboBox toolStripComboBox1;
+        private DataGridViewTextBoxColumn CharacterName;
+        private DataGridViewTextBoxColumn Abilities;
+        private DataGridViewTextBoxColumn Rounds;
     }
 }
 

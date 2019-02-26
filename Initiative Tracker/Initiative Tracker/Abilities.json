@@ -39,7 +39,8 @@
         "abilities": [
           {
             "AbilityName": "Rage",
-            "AbilityDuration": "10"
+            "AbilityDuration": "10",
+            "RemainingRounds": "10"
           },
           {
             "AbilityName": "First Strike",

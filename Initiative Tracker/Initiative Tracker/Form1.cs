@@ -372,17 +372,30 @@ namespace Initiative_Tracker
         private void AddAbility_Click(object sender, EventArgs e)
         {
             int s = Int32.Parse((sender as Button).Name.Substring(10));// get the index number for the button pressed
-            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, playerList[s-1].PlayerClass))//create the add ability form and send it the abilitiesList
+            using (var addAbilityForm = new AddAbilityForm(abilitiesList[0].Class, initiativeOrder[s-1].PlayerClass))//create the add ability form and send it the abilitiesList
             {
                 var result = addAbilityForm.ShowDialog();//Show the add abilities form
+                Ability newAbility = new Ability();
 
                 if (result == DialogResult.OK)//check if the dialog was closed by the add button
                 {
                     string val = addAbilityForm.NewAbility; //fetch the selected ability from the addAbility form
-                    var characterName = currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).PlayerName;//fetch the character name that we are adding the ability too.
-                    Ability newAbility = abilitiesList[0].Class.Find(item => item.Classname == playerList[s-1].PlayerClass).abilities.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
-                    currentOrder.Find(character => character.PlayerName == playerList[s - 1].PlayerName).abilities.Add(newAbility);//find the character in the current order list and add the new ability to them.
+                    var characterName = currentOrder.Find(character => character.PlayerName == initiativeOrder[s - 1].PlayerName).PlayerName;//fetch the character name that we are adding the ability too.
+                    if (!addAbilityForm.isCustom)
+                    {
+                        newAbility = abilitiesList[0].Class.Find(item => item.Classname == initiativeOrder[s - 1].PlayerClass).abilities.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
+                    }
+                    else
+                    {
+                        newAbility = new Ability
+                        {
+                            AbilityName = val,
+                            AbilityDuration = addAbilityForm.rounds,
+                            RemainingRounds = addAbilityForm.rounds,
 
+                        };
+                    }
+                    currentOrder.Find(character => character.PlayerName == initiativeOrder[s - 1].PlayerName).abilities.Add(newAbility);//find the character in the current order list and add the new ability to them.
                     int rowIndex = -1;
                     //go through each row in the datagrid
                     foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -401,7 +414,7 @@ namespace Initiative_Tracker
                     else
                     {
                         dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;//add the new ability one a new line 
-                        dataGridView1["Rounds", rowIndex].Value += "\n" + newAbility.RemainingRounds.ToString(); //add the new abilities duration on a new line.
+                        dataGridView1["Rounds", rowIndex].Value += Environment.NewLine + newAbility.RemainingRounds.ToString(); //add the new abilities duration on a new line.
                     }
                 }
             }

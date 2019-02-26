@@ -16,6 +16,8 @@ namespace Initiative_Tracker
         List<Class> abilitiesList2;
         Class playerClass;
 
+        public bool isCustom { get; set; }
+        public int rounds { get; set; }
         public string NewAbility { get; set; }
 
         public AddAbilityForm(List<Class> abilitiesList, string sentClass)
@@ -53,5 +55,24 @@ namespace Initiative_Tracker
             this.Close();
         }
 
+        private void AddCustomAbility_Click(object sender, EventArgs e)
+        {
+            if (NameTextBox.Text != "" && DurationTextBox.Text != "")
+            {
+                isCustom = true;
+                NewAbility = NameTextBox.Text;
+                rounds = Int32.Parse(DurationTextBox.Text);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else if(NameTextBox.Text == "")
+            {
+                MessageBox.Show("Please Enter a name for the Ability.");
+            }
+            else
+            {
+                MessageBox.Show("Please Enter duration of the Ability.");
+            }
+        }
     }
 }
