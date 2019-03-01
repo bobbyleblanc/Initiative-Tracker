@@ -95,22 +95,28 @@ namespace Initiative_Tracker
                             currentOrder.Insert(currentOrder.Count-turn-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//insert the new player in the ocrrect porstion of the current order list
                         }
                         dataGridView1.Rows.Clear();
+                        form2.dataGridView1.Rows.Clear();
                         //listView1.Items.Clear();
-                        form2.listView1.Items.Clear();
+                        //form2.listView1.Items.Clear();
                         for (int y = 0; y < currentOrder.Count; y++)
                         {
-                            this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                            dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                            form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
                             foreach (Ability a in currentOrder[y].abilities)
                             {
                                 if (dataGridView1["Abilities", y].Value.ToString() == "")
                                 {
                                     dataGridView1["Abilities", y].Value = a.AbilityName;
                                     dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                                    form2.dataGridView1["Abilities", y].Value = a.AbilityName;
+                                    form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
                                 }
                                 else
                                 {
                                     dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
                                     dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                    form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                    form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                                 }
                             }
 
@@ -118,9 +124,7 @@ namespace Initiative_Tracker
                             listItem.Name = currentOrder[y].PlayerName;
                             listItem.SubItems.Add("");
                             listItem.SubItems.Add("");
-
-                            form2.listView1.Items.Add(listItem);
-                            
+                                                       
                         }
                     }
                 }
@@ -194,7 +198,8 @@ namespace Initiative_Tracker
                 currentOrder.RemoveAt(0);
                 currentOrder.Insert(currentOrder.Count, lvi);
                 dataGridView1.Rows.Clear();
-                form2.listView1.Items.Clear();
+                form2.dataGridView1.Rows.Clear();
+                //form2.listView1.Items.Clear();
                 for (int y = 0; y < currentOrder.Count; y++)
                 {
                     this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
@@ -212,15 +217,18 @@ namespace Initiative_Tracker
                             {
                                 dataGridView1["Abilities", y].Value = a.AbilityName;
                                 dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                                form2.dataGridView1["Abilities", y].Value = a.AbilityName;
+                                form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
                             }
                             else
                             {
                                 dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
                                 dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                             }
                         }
                     }
-                    form2.listView1.Items.Add(currentOrder[y].PlayerName);
                 }
 
                 if (turn == currentOrder.Count)
@@ -241,7 +249,7 @@ namespace Initiative_Tracker
                 currentOrder.RemoveAt(currentOrder.Count - 1);
                 currentOrder.Insert(0, lvi);
                 dataGridView1.Rows.Clear();
-                form2.listView1.Items.Clear();
+                form2.dataGridView1.Rows.Clear();
 
                 for (int y = 0; y < currentOrder.Count; y++)
                 {
@@ -266,11 +274,15 @@ namespace Initiative_Tracker
                                 {
                                     dataGridView1["Abilities", y].Value = a.AbilityName;
                                     dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                                    form2.dataGridView1["Abilities", y].Value = a.AbilityName;
+                                    form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
                                 }
                                 else
                                 {
                                     dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
                                     dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                    form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                    form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
                                 }
                             }
                         }
@@ -279,7 +291,6 @@ namespace Initiative_Tracker
                     {
                         currentOrder[y].abilities.Remove(abilitiesToRemove[x-1]);
                     }
-                    form2.listView1.Items.Add(currentOrder[y].PlayerName);
                 }
             }
             else
@@ -334,11 +345,15 @@ namespace Initiative_Tracker
                     {
                         dataGridView1["Abilities", rowIndex].Value = newAbility.AbilityName;//add the new abilities name
                         dataGridView1["Rounds",rowIndex].Value = newAbility.RemainingRounds.ToString();//add the new abilities duration
+                        form2.dataGridView1["Abilities", rowIndex].Value = newAbility.AbilityName;//add the new abilities name
+                        form2.dataGridView1["Rounds", rowIndex].Value = newAbility.RemainingRounds.ToString();//add the new abilities duration
                     }
                     else
                     {
                         dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;//add the new ability one a new line 
                         dataGridView1["Rounds", rowIndex].Value += Environment.NewLine + newAbility.RemainingRounds.ToString(); //add the new abilities duration on a new line.
+                        form2.dataGridView1["Abilities", rowIndex].Value += "\n" + newAbility.AbilityName;//add the new ability one a new line 
+                        form2.dataGridView1["Rounds", rowIndex].Value += Environment.NewLine + newAbility.RemainingRounds.ToString(); //add the new abilities duration on a new line.
                     }
                 }
             }
@@ -480,8 +495,8 @@ namespace Initiative_Tracker
                 initiativeOrder.Clear();
                 currentOrder.Clear();
                 dataGridView1.Rows.Clear();
-                form2.listView1.Items.Clear();
-                foreach(InfoLayout ILI in infoLayoutList)
+                form2.dataGridView1.Rows.Clear();
+                foreach (InfoLayout ILI in infoLayoutList)
                 {
                     participantBoxPanel.Controls.Remove(ILI.abilities);
                     participantBoxPanel.Controls.Remove(ILI.playerName);
@@ -538,7 +553,7 @@ namespace Initiative_Tracker
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            form2.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", Int32.Parse(toolStripComboBox1.SelectedItem.ToString()));
+            form2.dataGridView1.Font = new System.Drawing.Font("Microsoft Sans Serif", Int32.Parse(toolStripComboBox1.SelectedItem.ToString()));
         }
     }
 }
