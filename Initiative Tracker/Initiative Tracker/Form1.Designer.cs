@@ -70,6 +70,16 @@ namespace Initiative_Tracker
             this.panel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.playerlistBox1 = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.monsterTab = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.HPTextBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.UpdateCharacter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.participantsBox.SuspendLayout();
             this.participantBoxPanel.SuspendLayout();
@@ -78,6 +88,8 @@ namespace Initiative_Tracker
             this.characterTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // addToListButton
@@ -259,6 +271,7 @@ namespace Initiative_Tracker
             // 
             this.tabControl1.Controls.Add(this.homeTab);
             this.tabControl1.Controls.Add(this.characterTab);
+            this.tabControl1.Controls.Add(this.monsterTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 23);
             this.tabControl1.Name = "tabControl1";
@@ -367,11 +380,8 @@ namespace Initiative_Tracker
             // 
             // characterTab
             // 
-            this.characterTab.Controls.Add(this.label4);
-            this.characterTab.Controls.Add(this.label3);
-            this.characterTab.Controls.Add(this.classSelect);
-            this.characterTab.Controls.Add(this.createCharacter);
-            this.characterTab.Controls.Add(this.enterName);
+            this.characterTab.Controls.Add(this.groupBox2);
+            this.characterTab.Controls.Add(this.groupBox1);
             this.characterTab.Location = new System.Drawing.Point(4, 22);
             this.characterTab.Name = "characterTab";
             this.characterTab.Padding = new System.Windows.Forms.Padding(3);
@@ -383,7 +393,7 @@ namespace Initiative_Tracker
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(182, 63);
+            this.label4.Location = new System.Drawing.Point(121, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 4;
@@ -392,7 +402,7 @@ namespace Initiative_Tracker
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(76, 64);
+            this.label3.Location = new System.Drawing.Point(15, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 3;
@@ -401,14 +411,14 @@ namespace Initiative_Tracker
             // classSelect
             // 
             this.classSelect.FormattingEnabled = true;
-            this.classSelect.Location = new System.Drawing.Point(185, 83);
+            this.classSelect.Location = new System.Drawing.Point(124, 45);
             this.classSelect.Name = "classSelect";
             this.classSelect.Size = new System.Drawing.Size(121, 30);
             this.classSelect.TabIndex = 2;
             // 
             // createCharacter
             // 
-            this.createCharacter.Location = new System.Drawing.Point(309, 80);
+            this.createCharacter.Location = new System.Drawing.Point(248, 42);
             this.createCharacter.Name = "createCharacter";
             this.createCharacter.Size = new System.Drawing.Size(75, 23);
             this.createCharacter.TabIndex = 1;
@@ -418,7 +428,7 @@ namespace Initiative_Tracker
             // 
             // enterName
             // 
-            this.enterName.Location = new System.Drawing.Point(76, 83);
+            this.enterName.Location = new System.Drawing.Point(15, 45);
             this.enterName.Name = "enterName";
             this.enterName.Size = new System.Drawing.Size(100, 20);
             this.enterName.TabIndex = 0;
@@ -462,6 +472,104 @@ namespace Initiative_Tracker
             this.toolStripComboBox1.Text = "8.25";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.enterName);
+            this.groupBox1.Controls.Add(this.createCharacter);
+            this.groupBox1.Controls.Add(this.classSelect);
+            this.groupBox1.Location = new System.Drawing.Point(23, 29);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(818, 100);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Create Character";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.UpdateCharacter);
+            this.groupBox2.Controls.Add(this.HPTextBox);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.NameTextBox);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.playerlistBox1);
+            this.groupBox2.Location = new System.Drawing.Point(23, 143);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(817, 260);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Edit Character";
+            // 
+            // playerlistBox1
+            // 
+            this.playerlistBox1.FormattingEnabled = true;
+            this.playerlistBox1.Location = new System.Drawing.Point(15, 39);
+            this.playerlistBox1.Name = "playerlistBox1";
+            this.playerlistBox1.Size = new System.Drawing.Size(120, 147);
+            this.playerlistBox1.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(18, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Character";
+            // 
+            // monsterTab
+            // 
+            this.monsterTab.Location = new System.Drawing.Point(4, 22);
+            this.monsterTab.Name = "monsterTab";
+            this.monsterTab.Size = new System.Drawing.Size(875, 423);
+            this.monsterTab.TabIndex = 2;
+            this.monsterTab.Text = "Monsters";
+            this.monsterTab.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(162, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Name";
+            // 
+            // NameTextBox
+            // 
+            this.NameTextBox.Location = new System.Drawing.Point(165, 56);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.NameTextBox.TabIndex = 3;
+            // 
+            // HPTextBox
+            // 
+            this.HPTextBox.Location = new System.Drawing.Point(165, 96);
+            this.HPTextBox.Name = "HPTextBox";
+            this.HPTextBox.Size = new System.Drawing.Size(100, 20);
+            this.HPTextBox.TabIndex = 5;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(162, 79);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(22, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "HP";
+            // 
+            // UpdateCharacter
+            // 
+            this.UpdateCharacter.Location = new System.Drawing.Point(248, 162);
+            this.UpdateCharacter.Name = "UpdateCharacter";
+            this.UpdateCharacter.Size = new System.Drawing.Size(114, 23);
+            this.UpdateCharacter.TabIndex = 6;
+            this.UpdateCharacter.Text = "Update Character";
+            this.UpdateCharacter.UseVisualStyleBackColor = true;
+            this.UpdateCharacter.Click += new System.EventHandler(this.UpdateCharacter_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,11 +588,14 @@ namespace Initiative_Tracker
             this.homeTab.ResumeLayout(false);
             this.homeTab.PerformLayout();
             this.characterTab.ResumeLayout(false);
-            this.characterTab.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -529,6 +640,16 @@ namespace Initiative_Tracker
         private DataGridViewTextBoxColumn CharacterName;
         private DataGridViewTextBoxColumn Abilities;
         private DataGridViewTextBoxColumn Rounds;
+        private GroupBox groupBox2;
+        private Label label10;
+        private ListBox playerlistBox1;
+        private GroupBox groupBox1;
+        private TabPage monsterTab;
+        private TextBox HPTextBox;
+        private Label label12;
+        private TextBox NameTextBox;
+        private Label label11;
+        private Button UpdateCharacter;
     }
 }
 

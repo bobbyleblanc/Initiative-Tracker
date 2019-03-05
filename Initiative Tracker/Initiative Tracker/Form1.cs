@@ -48,6 +48,7 @@ namespace Initiative_Tracker
             for (var x = 0; x<playerList.Count;x++)
             {
                 characterListBox.Items.Add(playerList[x].PlayerName);
+                playerlistBox1.Items.Add(playerList[x].PlayerName);
             }
             //add all monstetrs from the Beastiary json to the monster selection box.
             for (var x = 0; x < beastiaryList.Count; x++)
@@ -65,46 +66,41 @@ namespace Initiative_Tracker
         {
             if (enterInitiative.Text != "" && enterInitiative.Text.All(char.IsDigit) && characterListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
             {
-                for (var x = 0; x<playerList.Count; x++)
-                {
-                    if (x == playerList.Count - 1)
-                    {
-                        numPlayers++;//increment the current players in the combat
-                        var infolist = CreateInfoLayout("Player");//create a new info layout for the players info to be displayed
-                        infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
+                numPlayers++;//increment the current players in the combat
+                var infolist = CreateInfoLayout("Player");//create a new info layout for the players info to be displayed
+                infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
 
-                        //add the controls to the form.
-                        participantBoxPanel.Controls.Add(infolist.playerName);
-                        participantBoxPanel.Controls.Add(infolist.HP);
-                        participantBoxPanel.Controls.Add(infolist.Initiative);
-                        participantBoxPanel.Controls.Add(infolist.AddAbility);
-                        participantBoxPanel.Controls.Add(infolist.AddCondition);
+                //add the controls to the form.
+                participantBoxPanel.Controls.Add(infolist.playerName);
+                participantBoxPanel.Controls.Add(infolist.HP);
+                participantBoxPanel.Controls.Add(infolist.Initiative);
+                participantBoxPanel.Controls.Add(infolist.AddAbility);
+                participantBoxPanel.Controls.Add(infolist.AddCondition);
+                participantBoxPanel.Controls.Add(infolist.Dead);
 
-                        Player p = new Player();
-                        p = DeepClone(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+                Player p = new Player();
+                p = DeepClone(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
 
-                        //set the players initiative equal to the entered initiative
-                        p.PlayerInitiative = Int32.Parse(enterInitiative.Text);
-                        //set the players ID
-                        p.ID = initiativeOrder.Count();
+                //set the players initiative equal to the entered initiative
+                p.PlayerInitiative = Int32.Parse(enterInitiative.Text);
+                //set the players ID
+                p.ID = initiativeOrder.Count();
 ;
 
-                        initiativeOrder.Add(p);//add the new player to the initiative order list
-                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
+                initiativeOrder.Add(p);//add the new player to the initiative order list
+                initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
 
-                        var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
-                        var temp = index - (turn-1);//get where they would fall within the turn
-                        if (temp >= 0)//if their turn hasn't passed this round
-                        {
-                            currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
-                        }
-                        else
-                        {
-                            currentOrder.Insert(currentOrder.Count-(turn-1)-index, p);//insert the new player in the ocrrect porstion of the current order list
-                        }
-                        UpdateDataGrids("new");
-                    }
+                var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
+                var temp = index - (turn-1);//get where they would fall within the turn
+                if (temp >= 0)//if their turn hasn't passed this round
+                {
+                    currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
                 }
+                else
+                {
+                    currentOrder.Insert(currentOrder.Count-(turn-1)-index, p);//insert the new player in the ocrrect porstion of the current order list
+                }
+                UpdateDataGrids("new");
                 characterListBox.Items.Remove(characterListBox.SelectedItem);
             }
             else if(characterListBox.SelectedIndex == -1)//ensure a name was entered
@@ -287,6 +283,49 @@ namespace Initiative_Tracker
             }
         }
 
+        private void Dead_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show("Are you sure want to remove this participant?",
+                                     "Confirm participant removal",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                int s = Int32.Parse((sender as Button).Name.Substring(4));
+                var curCharacter = initiativeOrder.Find(character => character.ID == s);
+
+                initiativeOrder.Remove(curCharacter);
+                currentOrder.Remove(curCharacter);
+
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].playerName);
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].HP);
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].Initiative);
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].AddAbility);
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].AddCondition);
+                participantBoxPanel.Controls.Remove(infoLayoutList[s].Dead);
+
+                infoLayoutList.RemoveAt(s);
+                characterListBox.Items.Add(curCharacter.PlayerName);
+
+                for (int x = s ; x < infoLayoutList.Count(); x++)
+                {
+                    var vOffset = 29 * x;
+                    infoLayoutList[x].Initiative.Location = new System.Drawing.Point(5, 31 + vOffset);
+                    infoLayoutList[x].playerName.Location = new System.Drawing.Point(30, 31 + vOffset);
+                    infoLayoutList[x].HP.Location = new System.Drawing.Point(100, 31 + vOffset);
+                    infoLayoutList[x].AddAbility.Location = new System.Drawing.Point(150, 26 + vOffset);
+                    infoLayoutList[x].AddCondition.Location = new System.Drawing.Point(270, 26 + vOffset);
+                    infoLayoutList[x].abilities.Location = new System.Drawing.Point(150, 31 + vOffset);
+                    infoLayoutList[x].Dead.Location = new System.Drawing.Point(370, 26 + vOffset);
+                }
+
+                UpdateDataGrids("Dead");
+            }
+            else
+            {
+                return;
+            }
+        }
+
         private InfoLayout CreateInfoLayout(string type)
         {
             InfoLayout infoLayout = new InfoLayout();
@@ -333,7 +372,15 @@ namespace Initiative_Tracker
             infoLayout.AddCondition.UseVisualStyleBackColor = true;
             infoLayout.AddCondition.Click += new System.EventHandler(this.Addcondition_Click);
 
-            if(type == "Player")
+            infoLayout.Dead.Location = new System.Drawing.Point(370, 26 + vOffset);
+            infoLayout.Dead.Name = $"Dead{infoLayoutList.Count}";
+            infoLayout.Dead.Size = new System.Drawing.Size(100, 23);
+            infoLayout.Dead.TabIndex = 1;
+            infoLayout.Dead.Text = "Dead";
+            infoLayout.Dead.UseVisualStyleBackColor = true;
+            infoLayout.Dead.Click += new System.EventHandler(this.Dead_Click);
+
+            if (type == "Player")
             {
                 infoLayout.Initiative.Text = $"{enterInitiative.Text}";
                 infoLayout.playerName.Text = $"{characterListBox.SelectedItem}";
@@ -391,45 +438,40 @@ namespace Initiative_Tracker
         {
             if (beastInitiative.Text != "" && beastInitiative.Text.All(char.IsDigit) && beastiaryListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
             {
-                for (var x = 0; x < beastiaryList.Count; x++)
+                numPlayers++;//increment the current players in the combat
+                var infolist = CreateInfoLayout("Beast");//create a new info layout for the players info to be displayed
+                infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
+
+                //add the controls to the form.
+                participantBoxPanel.Controls.Add(infolist.playerName);
+                participantBoxPanel.Controls.Add(infolist.HP);
+                participantBoxPanel.Controls.Add(infolist.Initiative);
+                participantBoxPanel.Controls.Add(infolist.AddAbility);
+                participantBoxPanel.Controls.Add(infolist.AddCondition);
+                participantBoxPanel.Controls.Add(infolist.Dead);
+
+                Player p = new Player();
+                p = DeepClone(beastiaryList.Find(item => item.PlayerName == beastiaryListBox.SelectedItem.ToString()));
+
+                //set the players initiative equal to the entered initiative
+                p.PlayerInitiative = Int32.Parse(beastInitiative.Text);
+                //set the players ID
+                p.ID = initiativeOrder.Count();
+
+                initiativeOrder.Add(p);//add the new player to the initiative order list
+                initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
+
+                var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
+                var temp = index - (turn - 1);//get where they would fall within the turn
+                if (temp >= 0)//if their turn hasn't passed this round
                 {
-                    if (x == beastiaryList.Count - 1)
-                    {
-                        numPlayers++;//increment the current players in the combat
-                        var infolist = CreateInfoLayout("Beast");//create a new info layout for the players info to be displayed
-                        infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
-
-                        //add the controls to the form.
-                        participantBoxPanel.Controls.Add(infolist.playerName);
-                        participantBoxPanel.Controls.Add(infolist.HP);
-                        participantBoxPanel.Controls.Add(infolist.Initiative);
-                        participantBoxPanel.Controls.Add(infolist.AddAbility);
-                        participantBoxPanel.Controls.Add(infolist.AddCondition);
-
-                        Player p = new Player();
-                        p = DeepClone(beastiaryList.Find(item => item.PlayerName == beastiaryListBox.SelectedItem.ToString()));
-
-                        //set the players initiative equal to the entered initiative
-                        p.PlayerInitiative = Int32.Parse(beastInitiative.Text);
-                        //set the players ID
-                        p.ID = initiativeOrder.Count();
-
-                        initiativeOrder.Add(p);//add the new player to the initiative order list
-                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
-
-                        var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
-                        var temp = index - (turn - 1);//get where they would fall within the turn
-                        if (temp >= 0)//if their turn hasn't passed this round
-                        {
-                            currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
-                        }
-                        else
-                        {
-                            currentOrder.Insert(currentOrder.Count - (turn - 1) - index, p);//insert the new player in the ocrrect porstion of the current order list
-                        }
-                        UpdateDataGrids("new");
-                    }
+                    currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
                 }
+                else
+                {
+                    currentOrder.Insert(currentOrder.Count - (turn - 1) - index, p);//insert the new player in the ocrrect porstion of the current order list
+                }
+                UpdateDataGrids("new");
             }
             else if (characterListBox.SelectedIndex == -1)//ensure a name was entered
             {
@@ -588,6 +630,11 @@ namespace Initiative_Tracker
                     currentOrder[y].abilities.Remove(abilitiesToRemove[x - 1]);
                 }
             }
+        }
+
+        private void UpdateCharacter_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("To be implemented.");
         }
     }
 }
