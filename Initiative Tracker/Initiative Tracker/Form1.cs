@@ -202,7 +202,8 @@ namespace Initiative_Tracker
                 //form2.listView1.Items.Clear();
                 for (int y = 0; y < currentOrder.Count; y++)
                 {
-                    this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                    dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                    form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
                     foreach (Ability a in currentOrder[y].abilities)
                     {
                         if (y == currentOrder.Count - 1)
@@ -254,7 +255,8 @@ namespace Initiative_Tracker
                 for (int y = 0; y < currentOrder.Count; y++)
                 {
                     List<Ability> abilitiesToRemove= new List<Ability>();
-                    this.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                    dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                    form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
                     foreach (Ability a in currentOrder[y].abilities)
                     {
                         if (y == 0)
@@ -529,6 +531,7 @@ namespace Initiative_Tracker
             if(form2.IsDisposed)
             {
                 form2 = new Form2();
+                form2Show.Visible = true;
             }
             if (Screen.AllScreens.Length > 1)//check if there is more then one screen
             {
@@ -547,7 +550,7 @@ namespace Initiative_Tracker
             }
             else//if only one screen show the open player screen button
             {
-                form2Show.Visible = true;
+                form2.Show();
             }
         }
 
