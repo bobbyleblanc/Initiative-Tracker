@@ -3,7 +3,7 @@
     "PlayerName": "Frank",
     "PlayerInitiative": 1,
     "PlayerClass": "Fighter",
-    "HP": 0,
+    "HP": 45,
     "abilities": []
   },
   {
@@ -11,6 +11,6 @@
     "PlayerName": "Kyle",
     "PlayerInitiative": 17,
     "PlayerClass": "Fighter",
-    "HP": 0
+    "HP": 15
   }
 ]

@@ -3,7 +3,7 @@
     "PlayerName": "Goblin",
     "PlayerInitiative": 0,
     "PlayerClass": "",
-    "HP": 0,
+    "HP": 10,
     "abilities": []
   },
   {
@@ -11,6 +11,6 @@
     "PlayerName": "Knoll",
     "PlayerInitiative": 0,
     "PlayerClass": "",
-    "HP": 0
+    "HP": 15
   }
 ]

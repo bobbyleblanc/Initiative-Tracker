@@ -85,7 +85,8 @@ namespace Initiative_Tracker
                 p.PlayerInitiative = Int32.Parse(enterInitiative.Text);
                 //set the players ID
                 p.ID = initiativeOrder.Count();
-;
+                infolist.HP.Text = p.HP.ToString();
+
 
                 initiativeOrder.Add(p);//add the new player to the initiative order list
                 initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
@@ -457,6 +458,7 @@ namespace Initiative_Tracker
                 p.PlayerInitiative = Int32.Parse(beastInitiative.Text);
                 //set the players ID
                 p.ID = initiativeOrder.Count();
+                infolist.HP.Text = p.HP.ToString();
 
                 initiativeOrder.Add(p);//add the new player to the initiative order list
                 initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
