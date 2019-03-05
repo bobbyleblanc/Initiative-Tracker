@@ -12,33 +12,23 @@ namespace Initiative_Tracker
 {
     public partial class AddAbilityForm : Form
     {
-
-        List<Class> abilitiesList2;
-        Class playerClass;
+        List<Ability> abilitiesList2;
 
         public bool isCustom { get; set; }
         public int rounds { get; set; }
         public string NewAbility { get; set; }
 
-        public AddAbilityForm(List<Class> abilitiesList, string sentClass)
+        public AddAbilityForm(List<Ability> abilitiesList) 
         {
             InitializeComponent();
             abilitiesList2 = abilitiesList;
-            playerClass = abilitiesList2.Find(item => item.Classname ==  sentClass);
         }
 
         private void AddAbilityForm_Load(object sender, EventArgs e)
         {
-            
-            for (var x =0; x < abilitiesList2.Count; x++)
+            for (var z = 0; z <abilitiesList2.Count; z++)
             {
-                if (abilitiesList2[x] == playerClass)
-                {
-                    for (var z = 0; z < playerClass.abilities.Count; z++)
-                    {
-                        AbilitiesListBox.Items.Add(playerClass.abilities[z].AbilityName);
-                    }
-                }
+                AbilitiesListBox.Items.Add(abilitiesList2[z].AbilityName);
             }
         }
 

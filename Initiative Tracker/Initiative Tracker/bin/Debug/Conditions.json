@@ -1,0 +1,12 @@
+[
+  {
+    "AbilityName": "Blind",
+    "AbilityDuration": "10",
+    "RemainingRounds": "10"
+  },
+  {
+    "AbilityName": "Paralyzed",
+    "AbilityDuration": "10",
+    "RemainingRounds": "10"
+  }
+]

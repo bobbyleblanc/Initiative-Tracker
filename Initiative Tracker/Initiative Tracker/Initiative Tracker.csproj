@@ -109,6 +109,9 @@
     <None Include="Abilities.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Conditions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Beastiary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -143,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pixil_layer_background__2__rBX_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

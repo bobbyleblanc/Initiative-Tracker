@@ -164,32 +164,29 @@ namespace Initiative_Tracker
             // 
             // CharacterName
             // 
-            this.CharacterName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CharacterName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.CharacterName.HeaderText = "CharacterName";
             this.CharacterName.Name = "CharacterName";
             this.CharacterName.ReadOnly = true;
             this.CharacterName.ToolTipText = "the character";
-            this.CharacterName.Width = 106;
             // 
             // Abilities
             // 
-            this.Abilities.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Abilities.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Abilities.DefaultCellStyle = dataGridViewCellStyle2;
             this.Abilities.HeaderText = "Abilities";
             this.Abilities.Name = "Abilities";
             this.Abilities.ReadOnly = true;
             this.Abilities.ToolTipText = "Abilities charactes currently have going.";
-            this.Abilities.Width = 67;
             // 
             // Rounds
             // 
-            this.Rounds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Rounds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Rounds.HeaderText = "Rounds";
             this.Rounds.Name = "Rounds";
             this.Rounds.ReadOnly = true;
             this.Rounds.ToolTipText = "Number of rounds remaining for abilities.";
-            this.Rounds.Width = 69;
             // 
             // Player
             // 
@@ -462,6 +459,7 @@ namespace Initiative_Tracker
             "25"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 16);
+            this.toolStripComboBox1.Text = "8.25";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
             // Form1

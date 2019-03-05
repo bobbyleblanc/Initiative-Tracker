@@ -13,6 +13,7 @@ namespace Initiative_Tracker
         public string PlayerClass { get; set; }
         public int HP { get; set; }
         public List<Ability> abilities = new List<Ability>();
+        public int ID { get; set; }
     }
 
     public class InfoLayout
@@ -40,5 +41,11 @@ namespace Initiative_Tracker
     public class RootObject
     {
         public List<Class> Class { get; set; }
+    }
+    public class Condition
+    {
+        public string AbilityName { get; set; }
+        public string AbilityDuration { get; set; }
+        public string RemainingRounds { get; set; }
     }
 }
