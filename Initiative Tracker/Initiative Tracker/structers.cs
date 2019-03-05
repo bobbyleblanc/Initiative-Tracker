@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Initiative_Tracker
 {
+    [Serializable]
     public class Player
     {
         public string PlayerName { get; set; }
@@ -26,6 +27,7 @@ namespace Initiative_Tracker
         public System.Windows.Forms.Button AddCondition = new System.Windows.Forms.Button();
     }
 
+    [Serializable]
     public class Ability
     {
         public string AbilityName { get; set; }

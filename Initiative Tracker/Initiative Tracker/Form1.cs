@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,75 +63,46 @@ namespace Initiative_Tracker
         //add new character into the combat
         private void addToListButton_Click(object sender, EventArgs e)
         {
-            if (enterInitiative.Text != "" && characterListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
+            if (enterInitiative.Text != "" && enterInitiative.Text.All(char.IsDigit) && characterListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
             {
                 for (var x = 0; x<playerList.Count; x++)
                 {
                     if (x == playerList.Count - 1)
                     {
                         numPlayers++;//increment the current players in the combat
-                        var infolist = CreateInfoLayout();//create a new info layout for the players info to be displayed
+                        var infolist = CreateInfoLayout("Player");//create a new info layout for the players info to be displayed
                         infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
 
                         //add the controls to the form.
                         participantBoxPanel.Controls.Add(infolist.playerName);
                         participantBoxPanel.Controls.Add(infolist.HP);
-                        //participantBoxPanel.Controls.Add(infolist.abilities);
                         participantBoxPanel.Controls.Add(infolist.Initiative);
                         participantBoxPanel.Controls.Add(infolist.AddAbility);
                         participantBoxPanel.Controls.Add(infolist.AddCondition);
 
+                        Player p = new Player();
+                        p = DeepClone(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));
+
                         //set the players initiative equal to the entered initiative
-                        playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()).PlayerInitiative = Int32.Parse(enterInitiative.Text);
+                        p.PlayerInitiative = Int32.Parse(enterInitiative.Text);
                         //set the players ID
-                        playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()).ID = initiativeOrder.Count();
+                        p.ID = initiativeOrder.Count();
+;
 
-
-                        initiativeOrder.Add(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//add the new player to the initiative order list
+                        initiativeOrder.Add(p);//add the new player to the initiative order list
                         initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
 
-                        var index = initiativeOrder.IndexOf(playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//get the index value for the inserted player
+                        var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
                         var temp = index - (turn-1);//get where they would fall within the turn
                         if (temp >= 0)//if their turn hasn't passed this round
                         {
-                            currentOrder.Insert(temp, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//insert the new player in the correct porstion of the current order list
+                            currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
                         }
                         else
                         {
-                            currentOrder.Insert(currentOrder.Count-(turn-1)-index, playerList.Find(item => item.PlayerName == characterListBox.SelectedItem.ToString()));//insert the new player in the ocrrect porstion of the current order list
+                            currentOrder.Insert(currentOrder.Count-(turn-1)-index, p);//insert the new player in the ocrrect porstion of the current order list
                         }
-                        dataGridView1.Rows.Clear();
-                        form2.dataGridView1.Rows.Clear();
-                        //listView1.Items.Clear();
-                        //form2.listView1.Items.Clear();
-                        for (int y = 0; y < currentOrder.Count; y++)
-                        {
-                            dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                            form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                            foreach (Ability a in currentOrder[y].abilities)
-                            {
-                                if (dataGridView1["Abilities", y].Value.ToString() == "")
-                                {
-                                    dataGridView1["Abilities", y].Value = a.AbilityName;
-                                    dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                                    form2.dataGridView1["Abilities", y].Value = a.AbilityName;
-                                    form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                                }
-                                else
-                                {
-                                    dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                    dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                                    form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                    form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                                }
-                            }
-
-                            ListViewItem listItem = new ListViewItem(currentOrder[y].PlayerName); 
-                            listItem.Name = currentOrder[y].PlayerName;
-                            listItem.SubItems.Add("");
-                            listItem.SubItems.Add("");
-                                                       
-                        }
+                        UpdateDataGrids("new");
                     }
                 }
                 characterListBox.Items.Remove(characterListBox.SelectedItem);
@@ -139,7 +111,7 @@ namespace Initiative_Tracker
             {
                 MessageBox.Show("Please select a character.");
             }
-            else if (enterInitiative.Text == "")//ensure an initiative was entered.
+            else if (enterInitiative.Text == "" || !enterInitiative.Text.All(char.IsDigit))//ensure an initiative was entered.
             {
 
                 MessageBox.Show("Please enter the characters initiative.");
@@ -162,40 +134,8 @@ namespace Initiative_Tracker
                 var lvi = currentOrder[0];
                 currentOrder.RemoveAt(0);
                 currentOrder.Insert(currentOrder.Count, lvi);
-                dataGridView1.Rows.Clear();
-                form2.dataGridView1.Rows.Clear();
-                //form2.listView1.Items.Clear();
-                for (int y = 0; y < currentOrder.Count; y++)
-                {
-                    dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                    form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                    foreach (Ability a in currentOrder[y].abilities)
-                    {
-                        if (y == currentOrder.Count - 1)
-                        {
-                            a.RemainingRounds--;
-                        }
-                        if (a.RemainingRounds >= 0)
-                        {
 
-
-                            if (dataGridView1["Abilities", y].Value.ToString() == "")
-                            {
-                                dataGridView1["Abilities", y].Value = a.AbilityName;
-                                dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                                form2.dataGridView1["Abilities", y].Value = a.AbilityName;
-                                form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                            }
-                            else
-                            {
-                                dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                                form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                            }
-                        }
-                    }
-                }
+                UpdateDataGrids("next");
 
                 if (turn-1 == currentOrder.Count)
                 {
@@ -208,6 +148,8 @@ namespace Initiative_Tracker
         //go back a turn
         private void backButton_Click(object sender, EventArgs e)
         {
+            if (currentOrder.Count == 0)
+            { return; }
             if (turn > 1 || round > 1)
             {
                 turn--;
@@ -216,51 +158,8 @@ namespace Initiative_Tracker
                 var lvi = currentOrder[currentOrder.Count - 1];
                 currentOrder.RemoveAt(currentOrder.Count - 1);
                 currentOrder.Insert(0, lvi);
-                dataGridView1.Rows.Clear();
-                form2.dataGridView1.Rows.Clear();
 
-                for (int y = 0; y < currentOrder.Count; y++)
-                {
-                    List<Ability> abilitiesToRemove= new List<Ability>();
-                    dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                    form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
-                    foreach (Ability a in currentOrder[y].abilities)
-                    {
-                        if (y == 0)
-                        {
-                            a.RemainingRounds++;
-                        }
-
-                        if (a.RemainingRounds > a.AbilityDuration)
-                        {
-                            abilitiesToRemove.Add(a);
-                        }
-                        else
-                        {
-                            if (a.RemainingRounds >= 0)
-                            {
-                                if (dataGridView1["Abilities", y].Value.ToString() == "")
-                                {
-                                    dataGridView1["Abilities", y].Value = a.AbilityName;
-                                    dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                                    form2.dataGridView1["Abilities", y].Value = a.AbilityName;
-                                    form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
-                                }
-                                else
-                                {
-                                    dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                    dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                                    form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
-                                    form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
-                                }
-                            }
-                        }
-                    }
-                    for (var x = abilitiesToRemove.Count; x > 0; x--)
-                    {
-                        currentOrder[y].abilities.Remove(abilitiesToRemove[x-1]);
-                    }
-                }
+                UpdateDataGrids("back");
             }
             else
             {
@@ -290,7 +189,7 @@ namespace Initiative_Tracker
                     //var characterName = curCharacter.PlayerName;//fetch the character name that we are adding the ability too.
                     if (!addAbilityForm.isCustom)
                     {
-                        newAbility = abilitiesList[0].Class.Find(item => item.Classname == curCharacter.PlayerClass).abilities.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
+                        newAbility = DeepClone(abilitiesList[0].Class.Find(item => item.Classname == curCharacter.PlayerClass).abilities.Find(ability => ability.AbilityName == val));//create a new ability using the name of the selected ability.
                     }
                     else
                     {
@@ -347,7 +246,7 @@ namespace Initiative_Tracker
                     //var characterName = curCharacter.PlayerName;//fetch the character name that we are adding the ability too.
                     if (!addAbilityForm.isCustom)
                     {
-                        newAbility =conditionsList.Find(ability => ability.AbilityName == val);//create a new ability using the name of the selected ability.
+                        newAbility = DeepClone(conditionsList.Find(ability => ability.AbilityName == val));//create a new ability using the name of the selected ability.
                     }
                     else
                     {
@@ -388,7 +287,7 @@ namespace Initiative_Tracker
             }
         }
 
-        private InfoLayout CreateInfoLayout()
+        private InfoLayout CreateInfoLayout(string type)
         {
             InfoLayout infoLayout = new InfoLayout();
             var vOffset = 29 * infoLayoutList.Count;
@@ -398,21 +297,18 @@ namespace Initiative_Tracker
             infoLayout.Initiative.Name = $"Initiative{infoLayoutList.Count}";
             infoLayout.Initiative.Size = new System.Drawing.Size(45, 13);
             infoLayout.Initiative.TabIndex = 13;
-            infoLayout.Initiative.Text = $"{enterInitiative.Text}";
 
             infoLayout.playerName.AutoSize = true;
             infoLayout.playerName.Location = new System.Drawing.Point(30, 31+vOffset);
             infoLayout.playerName.Name = $"player{infoLayoutList.Count}";
             infoLayout.playerName.Size = new System.Drawing.Size(45, 13);
             infoLayout.playerName.TabIndex = 13;
-            infoLayout.playerName.Text = $"{characterListBox.SelectedItem}";
 
             infoLayout.HP.AutoSize = true;
             infoLayout.HP.Location = new System.Drawing.Point(100, 31 + vOffset);
             infoLayout.HP.Name = $"HP{infoLayoutList.Count}";
             infoLayout.HP.Size = new System.Drawing.Size(45, 13);
             infoLayout.HP.TabIndex = 13;
-            infoLayout.HP.Text = $"HP {infoLayoutList.Count + 1}";
 
             infoLayout.abilities.AutoSize = true;
             infoLayout.abilities.Location = new System.Drawing.Point(150, 31 + vOffset);
@@ -437,12 +333,31 @@ namespace Initiative_Tracker
             infoLayout.AddCondition.UseVisualStyleBackColor = true;
             infoLayout.AddCondition.Click += new System.EventHandler(this.Addcondition_Click);
 
+            if(type == "Player")
+            {
+                infoLayout.Initiative.Text = $"{enterInitiative.Text}";
+                infoLayout.playerName.Text = $"{characterListBox.SelectedItem}";
+            }
+            else if (type == "Beast")
+            {
+                var count = 1;
+                foreach(Player p  in initiativeOrder)
+                {
+                    if (p.PlayerName == beastiaryListBox.SelectedItem.ToString())
+                    {
+                        count++;
+                    }
+                }
+                infoLayout.Initiative.Text = $"{beastInitiative.Text}";
+                infoLayout.playerName.Text = $"{beastiaryListBox.SelectedItem} {count}";
+            }
+
             return infoLayout;
         }
 
         private void createCharacter_Click(object sender, EventArgs e)
         {
-            if (enterName.Text != "")//check that both name and initiative were added for new players.
+            if (enterName.Text != "" && classSelect.SelectedIndex != -1)//check that both name and initiative were added for new players.
             {
                 for (var x = 0; x < playerList.Count; x++)
                 {
@@ -466,12 +381,69 @@ namespace Initiative_Tracker
                 File.WriteAllText("Players.json", jsonData);//update the .json file with the new list.
 
                 characterListBox.Items.Add(playerList[playerList.Count-1].PlayerName);
+
+                MessageBox.Show("Character created.");
+                enterName.Text = "";
             }
         }
 
         private void AddMonster_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("To be implemented");
+            if (beastInitiative.Text != "" && beastInitiative.Text.All(char.IsDigit) && beastiaryListBox.SelectedIndex != -1)//check that both name and initiative were added for new players.
+            {
+                for (var x = 0; x < beastiaryList.Count; x++)
+                {
+                    if (x == beastiaryList.Count - 1)
+                    {
+                        numPlayers++;//increment the current players in the combat
+                        var infolist = CreateInfoLayout("Beast");//create a new info layout for the players info to be displayed
+                        infoLayoutList.Add(infolist);//run the function to create the controls for the info layout
+
+                        //add the controls to the form.
+                        participantBoxPanel.Controls.Add(infolist.playerName);
+                        participantBoxPanel.Controls.Add(infolist.HP);
+                        participantBoxPanel.Controls.Add(infolist.Initiative);
+                        participantBoxPanel.Controls.Add(infolist.AddAbility);
+                        participantBoxPanel.Controls.Add(infolist.AddCondition);
+
+                        Player p = new Player();
+                        p = DeepClone(beastiaryList.Find(item => item.PlayerName == beastiaryListBox.SelectedItem.ToString()));
+
+                        //set the players initiative equal to the entered initiative
+                        p.PlayerInitiative = Int32.Parse(beastInitiative.Text);
+                        //set the players ID
+                        p.ID = initiativeOrder.Count();
+
+                        initiativeOrder.Add(p);//add the new player to the initiative order list
+                        initiativeOrder = initiativeOrder.OrderByDescending(k => k.PlayerInitiative).ToList();//resort the initiative order list
+
+                        var index = initiativeOrder.IndexOf(p);//get the index value for the inserted player
+                        var temp = index - (turn - 1);//get where they would fall within the turn
+                        if (temp >= 0)//if their turn hasn't passed this round
+                        {
+                            currentOrder.Insert(temp, p);//insert the new player in the correct porstion of the current order list
+                        }
+                        else
+                        {
+                            currentOrder.Insert(currentOrder.Count - (turn - 1) - index, p);//insert the new player in the ocrrect porstion of the current order list
+                        }
+                        UpdateDataGrids("new");
+                    }
+                }
+            }
+            else if (characterListBox.SelectedIndex == -1)//ensure a name was entered
+            {
+                MessageBox.Show("Please select a monster.");
+            }
+            else if (enterInitiative.Text == "" || !enterInitiative.Text.All(char.IsDigit))//ensure an initiative was entered.
+            {
+
+                MessageBox.Show("Please enter the monster's initiative.");
+            }
+            if (currentOrder.Count == 1)
+            {
+                endCombat.Show();
+            }
         }
 
         private void endCombat_Click(object sender, EventArgs e)
@@ -544,6 +516,78 @@ namespace Initiative_Tracker
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             form2.dataGridView1.Font = new System.Drawing.Font("Microsoft Sans Serif", Int32.Parse(toolStripComboBox1.SelectedItem.ToString()));
+        }
+
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+
+        private void UpdateDataGrids(string direction)
+        {
+            int count = 0;
+            dataGridView1.Rows.Clear();
+            form2.dataGridView1.Rows.Clear();
+
+            for (int y = 0; y < currentOrder.Count; y++)
+            {
+                List<Ability> abilitiesToRemove = new List<Ability>();
+                dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                form2.dataGridView1.Rows.Add(currentOrder[y].PlayerName, "", "");
+                foreach (Ability a in currentOrder[y].abilities)
+                {
+                    if (direction == "next")
+                    {
+                        if (y == currentOrder.Count - 1)
+                        {
+                            a.RemainingRounds--;
+                        }
+                    }
+                    else if (direction == "back")
+                    {
+                        if (y == 0)
+                        {
+                            a.RemainingRounds++;
+                        }
+
+                        if (a.RemainingRounds > a.AbilityDuration)
+                        {
+                            abilitiesToRemove.Add(a);
+                        }
+                    }
+                    if (count == abilitiesToRemove.Count)
+                    {
+                        if (a.RemainingRounds >= 0)
+                        {
+                            if (dataGridView1["Abilities", y].Value.ToString() == "")
+                            {
+                                dataGridView1["Abilities", y].Value = a.AbilityName;
+                                dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                                form2.dataGridView1["Abilities", y].Value = a.AbilityName;
+                                form2.dataGridView1["Rounds", y].Value = a.RemainingRounds.ToString();
+                            }
+                            else
+                            {
+                                dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                                form2.dataGridView1["Abilities", y].Value += "\n" + a.AbilityName;
+                                form2.dataGridView1["Rounds", y].Value += "\n" + a.RemainingRounds.ToString();
+                            }
+                        }
+                    }
+                }
+                for (var x = abilitiesToRemove.Count; x > 0; x--)
+                {
+                    currentOrder[y].abilities.Remove(abilitiesToRemove[x - 1]);
+                }
+            }
         }
     }
 }
