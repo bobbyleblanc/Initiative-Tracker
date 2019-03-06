@@ -137,6 +137,7 @@ namespace Initiative_Tracker
                 if (turn-1 == currentOrder.Count)
                 {
                     turn = 1;
+                    form2.turnCount.Text = turn.ToString();
                     round++;
                     form2.roundCount.Text = round.ToString();
                 }
@@ -165,6 +166,7 @@ namespace Initiative_Tracker
             if (turn == 0 && round > 1)
             {
                 turn = currentOrder.Count - 1;
+                form2.turnCount.Text = turn.ToString();
                 round--;
                 form2.roundCount.Text = round.ToString();
             }
@@ -303,6 +305,13 @@ namespace Initiative_Tracker
                 participantBoxPanel.Controls.Remove(infoLayoutList[s].AddAbility);
                 participantBoxPanel.Controls.Remove(infoLayoutList[s].AddCondition);
                 participantBoxPanel.Controls.Remove(infoLayoutList[s].Dead);
+                infoLayoutList[s].abilities.Dispose();
+                infoLayoutList[s].playerName.Dispose();
+                infoLayoutList[s].HP.Dispose();
+                infoLayoutList[s].AddAbility.Dispose();
+                infoLayoutList[s].AddCondition.Dispose();
+                infoLayoutList[s].Initiative.Dispose();
+                infoLayoutList[s].Dead.Dispose();
 
                 infoLayoutList.RemoveAt(s);
                 characterListBox.Items.Add(curCharacter.PlayerName);
@@ -388,10 +397,11 @@ namespace Initiative_Tracker
             }
             else if (type == "Beast")
             {
+                var nameLength = beastiaryListBox.Text.Length;
                 var count = 1;
                 foreach(Player p  in initiativeOrder)
                 {
-                    if (p.PlayerName == beastiaryListBox.SelectedItem.ToString())
+                    if (p.PlayerName.Length > nameLength && p.PlayerName.Substring(0, nameLength) == beastiaryListBox.SelectedItem.ToString())
                     {
                         count++;
                     }
@@ -453,6 +463,7 @@ namespace Initiative_Tracker
 
                 Player p = new Player();
                 p = DeepClone(beastiaryList.Find(item => item.PlayerName == beastiaryListBox.SelectedItem.ToString()));
+                p.PlayerName = infolist.playerName.Text;
 
                 //set the players initiative equal to the entered initiative
                 p.PlayerInitiative = Int32.Parse(beastInitiative.Text);
@@ -509,12 +520,14 @@ namespace Initiative_Tracker
                     participantBoxPanel.Controls.Remove(ILI.AddAbility);
                     participantBoxPanel.Controls.Remove(ILI.AddCondition);
                     participantBoxPanel.Controls.Remove(ILI.Initiative);
+                    participantBoxPanel.Controls.Remove(ILI.Dead);
                     ILI.abilities.Dispose(); 
                     ILI.playerName.Dispose(); 
                     ILI.HP.Dispose();
                     ILI.AddAbility.Dispose();
                     ILI.AddCondition.Dispose();
                     ILI.Initiative.Dispose();
+                    ILI.Dead.Dispose();
                 }
                 infoLayoutList.Clear();
                 characterListBox.Items.Clear();
@@ -522,6 +535,11 @@ namespace Initiative_Tracker
                 {
                     characterListBox.Items.Add(playerList[x].PlayerName);
                 }
+
+                turn = 0;
+                form2.turnCount.Text = turn.ToString();
+                round = 0;
+                form2.roundCount.Text = round.ToString();
             }
             else
             {

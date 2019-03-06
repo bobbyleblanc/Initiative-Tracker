@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.col1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Abilities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rounds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.turnCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.roundCount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.col1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Abilities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rounds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -56,25 +56,46 @@
             this.col1,
             this.Abilities,
             this.Rounds});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 25);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.Size = new System.Drawing.Size(794, 422);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // col1
+            // 
+            this.col1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col1.HeaderText = "Name";
+            this.col1.Name = "col1";
+            this.col1.ReadOnly = true;
+            // 
+            // Abilities
+            // 
+            this.Abilities.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Abilities.HeaderText = "Abilities";
+            this.Abilities.Name = "Abilities";
+            this.Abilities.ReadOnly = true;
+            // 
+            // Rounds
+            // 
+            this.Rounds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Rounds.HeaderText = "Rounds";
+            this.Rounds.Name = "Rounds";
+            this.Rounds.ReadOnly = true;
             // 
             // tableLayoutPanel1
             // 
@@ -113,11 +134,12 @@
             // turnCount
             // 
             this.turnCount.AutoSize = true;
+            this.turnCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.turnCount.Location = new System.Drawing.Point(597, 0);
             this.turnCount.Name = "turnCount";
-            this.turnCount.Size = new System.Drawing.Size(35, 13);
+            this.turnCount.Size = new System.Drawing.Size(29, 16);
             this.turnCount.TabIndex = 0;
-            this.turnCount.Text = "label1";
+            this.turnCount.Text = "0";
             // 
             // label2
             // 
@@ -132,11 +154,12 @@
             // roundCount
             // 
             this.roundCount.AutoSize = true;
+            this.roundCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roundCount.Location = new System.Drawing.Point(201, 0);
             this.roundCount.Name = "roundCount";
-            this.roundCount.Size = new System.Drawing.Size(35, 13);
+            this.roundCount.Size = new System.Drawing.Size(29, 16);
             this.roundCount.TabIndex = 2;
-            this.roundCount.Text = "label3";
+            this.roundCount.Text = "0";
             // 
             // label4
             // 
@@ -147,27 +170,6 @@
             this.label4.Size = new System.Drawing.Size(70, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "Turn";
-            // 
-            // col1
-            // 
-            this.col1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col1.HeaderText = "Name";
-            this.col1.Name = "col1";
-            this.col1.ReadOnly = true;
-            // 
-            // Abilities
-            // 
-            this.Abilities.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Abilities.HeaderText = "Abilities";
-            this.Abilities.Name = "Abilities";
-            this.Abilities.ReadOnly = true;
-            // 
-            // Rounds
-            // 
-            this.Rounds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Rounds.HeaderText = "Rounds";
-            this.Rounds.Name = "Rounds";
-            this.Rounds.ReadOnly = true;
             // 
             // Form2
             // 
