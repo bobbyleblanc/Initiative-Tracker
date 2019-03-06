@@ -62,34 +62,34 @@ namespace Initiative_Tracker
             this.AddMonster = new System.Windows.Forms.Button();
             this.characterListBox = new System.Windows.Forms.ListBox();
             this.characterTab = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.UpdateCharacter = new System.Windows.Forms.Button();
+            this.HPTextBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.playerlistBox1 = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.classSelect = new System.Windows.Forms.ListBox();
-            this.createCharacter = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.enterName = new System.Windows.Forms.TextBox();
+            this.createCharacter = new System.Windows.Forms.Button();
+            this.classSelect = new System.Windows.Forms.ListBox();
+            this.monsterTab = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.playerlistBox1 = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.monsterTab = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
-            this.HPTextBox = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.UpdateCharacter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.participantsBox.SuspendLayout();
             this.participantBoxPanel.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.characterTab.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // addToListButton
@@ -390,14 +390,94 @@ namespace Initiative_Tracker
             this.characterTab.Text = "Characters";
             this.characterTab.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // groupBox2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(121, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Class";
+            this.groupBox2.Controls.Add(this.UpdateCharacter);
+            this.groupBox2.Controls.Add(this.HPTextBox);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.NameTextBox);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.playerlistBox1);
+            this.groupBox2.Location = new System.Drawing.Point(23, 143);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(817, 260);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Edit Character";
+            // 
+            // UpdateCharacter
+            // 
+            this.UpdateCharacter.Location = new System.Drawing.Point(248, 162);
+            this.UpdateCharacter.Name = "UpdateCharacter";
+            this.UpdateCharacter.Size = new System.Drawing.Size(114, 23);
+            this.UpdateCharacter.TabIndex = 6;
+            this.UpdateCharacter.Text = "Update Character";
+            this.UpdateCharacter.UseVisualStyleBackColor = true;
+            this.UpdateCharacter.Click += new System.EventHandler(this.UpdateCharacter_Click);
+            // 
+            // HPTextBox
+            // 
+            this.HPTextBox.Location = new System.Drawing.Point(165, 96);
+            this.HPTextBox.Name = "HPTextBox";
+            this.HPTextBox.Size = new System.Drawing.Size(100, 20);
+            this.HPTextBox.TabIndex = 5;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(162, 79);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(22, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "HP";
+            // 
+            // NameTextBox
+            // 
+            this.NameTextBox.Location = new System.Drawing.Point(165, 56);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.NameTextBox.TabIndex = 3;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(162, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Name";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(18, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Character";
+            // 
+            // playerlistBox1
+            // 
+            this.playerlistBox1.FormattingEnabled = true;
+            this.playerlistBox1.Location = new System.Drawing.Point(15, 39);
+            this.playerlistBox1.Name = "playerlistBox1";
+            this.playerlistBox1.Size = new System.Drawing.Size(120, 147);
+            this.playerlistBox1.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.enterName);
+            this.groupBox1.Controls.Add(this.createCharacter);
+            this.groupBox1.Controls.Add(this.classSelect);
+            this.groupBox1.Location = new System.Drawing.Point(23, 29);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(818, 100);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Create Character";
             // 
             // label3
             // 
@@ -408,13 +488,21 @@ namespace Initiative_Tracker
             this.label3.TabIndex = 3;
             this.label3.Text = "Name";
             // 
-            // classSelect
+            // label4
             // 
-            this.classSelect.FormattingEnabled = true;
-            this.classSelect.Location = new System.Drawing.Point(124, 45);
-            this.classSelect.Name = "classSelect";
-            this.classSelect.Size = new System.Drawing.Size(121, 30);
-            this.classSelect.TabIndex = 2;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(121, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Class";
+            // 
+            // enterName
+            // 
+            this.enterName.Location = new System.Drawing.Point(15, 45);
+            this.enterName.Name = "enterName";
+            this.enterName.Size = new System.Drawing.Size(100, 20);
+            this.enterName.TabIndex = 0;
             // 
             // createCharacter
             // 
@@ -426,12 +514,22 @@ namespace Initiative_Tracker
             this.createCharacter.UseVisualStyleBackColor = true;
             this.createCharacter.Click += new System.EventHandler(this.createCharacter_Click);
             // 
-            // enterName
+            // classSelect
             // 
-            this.enterName.Location = new System.Drawing.Point(15, 45);
-            this.enterName.Name = "enterName";
-            this.enterName.Size = new System.Drawing.Size(100, 20);
-            this.enterName.TabIndex = 0;
+            this.classSelect.FormattingEnabled = true;
+            this.classSelect.Location = new System.Drawing.Point(124, 45);
+            this.classSelect.Name = "classSelect";
+            this.classSelect.Size = new System.Drawing.Size(121, 30);
+            this.classSelect.TabIndex = 2;
+            // 
+            // monsterTab
+            // 
+            this.monsterTab.Location = new System.Drawing.Point(4, 22);
+            this.monsterTab.Name = "monsterTab";
+            this.monsterTab.Size = new System.Drawing.Size(875, 423);
+            this.monsterTab.TabIndex = 2;
+            this.monsterTab.Text = "Monsters";
+            this.monsterTab.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -472,104 +570,6 @@ namespace Initiative_Tracker
             this.toolStripComboBox1.Text = "8.25";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.enterName);
-            this.groupBox1.Controls.Add(this.createCharacter);
-            this.groupBox1.Controls.Add(this.classSelect);
-            this.groupBox1.Location = new System.Drawing.Point(23, 29);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(818, 100);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Create Character";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.UpdateCharacter);
-            this.groupBox2.Controls.Add(this.HPTextBox);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.NameTextBox);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.playerlistBox1);
-            this.groupBox2.Location = new System.Drawing.Point(23, 143);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(817, 260);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Edit Character";
-            // 
-            // playerlistBox1
-            // 
-            this.playerlistBox1.FormattingEnabled = true;
-            this.playerlistBox1.Location = new System.Drawing.Point(15, 39);
-            this.playerlistBox1.Name = "playerlistBox1";
-            this.playerlistBox1.Size = new System.Drawing.Size(120, 147);
-            this.playerlistBox1.TabIndex = 0;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(18, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 13);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Character";
-            // 
-            // monsterTab
-            // 
-            this.monsterTab.Location = new System.Drawing.Point(4, 22);
-            this.monsterTab.Name = "monsterTab";
-            this.monsterTab.Size = new System.Drawing.Size(875, 423);
-            this.monsterTab.TabIndex = 2;
-            this.monsterTab.Text = "Monsters";
-            this.monsterTab.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(162, 39);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 13);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "Name";
-            // 
-            // NameTextBox
-            // 
-            this.NameTextBox.Location = new System.Drawing.Point(165, 56);
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.NameTextBox.TabIndex = 3;
-            // 
-            // HPTextBox
-            // 
-            this.HPTextBox.Location = new System.Drawing.Point(165, 96);
-            this.HPTextBox.Name = "HPTextBox";
-            this.HPTextBox.Size = new System.Drawing.Size(100, 20);
-            this.HPTextBox.TabIndex = 5;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(162, 79);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(22, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "HP";
-            // 
-            // UpdateCharacter
-            // 
-            this.UpdateCharacter.Location = new System.Drawing.Point(248, 162);
-            this.UpdateCharacter.Name = "UpdateCharacter";
-            this.UpdateCharacter.Size = new System.Drawing.Size(114, 23);
-            this.UpdateCharacter.TabIndex = 6;
-            this.UpdateCharacter.Text = "Update Character";
-            this.UpdateCharacter.UseVisualStyleBackColor = true;
-            this.UpdateCharacter.Click += new System.EventHandler(this.UpdateCharacter_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -579,6 +579,7 @@ namespace Initiative_Tracker
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = " ";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.participantsBox.ResumeLayout(false);
@@ -588,14 +589,14 @@ namespace Initiative_Tracker
             this.homeTab.ResumeLayout(false);
             this.homeTab.PerformLayout();
             this.characterTab.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

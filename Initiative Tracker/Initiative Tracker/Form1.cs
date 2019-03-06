@@ -23,6 +23,7 @@ namespace Initiative_Tracker
         List<Player> currentOrder = new List<Player>();
         List<Ability> conditionsList = new List<Ability>();
         public int numPlayers = 0;
+        public int numPlayersRemoved = 0;
         public int turn = 1;
         public int round = 1;
 
@@ -293,6 +294,7 @@ namespace Initiative_Tracker
                                      MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
+                numPlayersRemoved++;
                 int s = Int32.Parse((sender as Button).Name.Substring(4));
                 var curCharacter = initiativeOrder.Find(character => character.ID == s);
 
@@ -312,13 +314,18 @@ namespace Initiative_Tracker
                 infoLayoutList[s].AddCondition.Dispose();
                 infoLayoutList[s].Initiative.Dispose();
                 infoLayoutList[s].Dead.Dispose();
+                
 
-                infoLayoutList.RemoveAt(s);
-                characterListBox.Items.Add(curCharacter.PlayerName);
-
+                foreach (Player p in playerList)
+                {
+                    if (p.PlayerName == curCharacter.PlayerName)
+                    {
+                        characterListBox.Items.Add(curCharacter.PlayerName);
+                    }
+                }
                 for (int x = s ; x < infoLayoutList.Count(); x++)
                 {
-                    var vOffset = 29 * x;
+                    var vOffset = 29 * (x-numPlayersRemoved);
                     infoLayoutList[x].Initiative.Location = new System.Drawing.Point(5, 31 + vOffset);
                     infoLayoutList[x].playerName.Location = new System.Drawing.Point(30, 31 + vOffset);
                     infoLayoutList[x].HP.Location = new System.Drawing.Point(100, 31 + vOffset);
@@ -339,7 +346,7 @@ namespace Initiative_Tracker
         private InfoLayout CreateInfoLayout(string type)
         {
             InfoLayout infoLayout = new InfoLayout();
-            var vOffset = 29 * infoLayoutList.Count;
+            var vOffset = 29 * (infoLayoutList.Count-numPlayersRemoved);
 
             infoLayout.Initiative.AutoSize = true;
             infoLayout.Initiative.Location = new System.Drawing.Point(5, 31 + vOffset);
